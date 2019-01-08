@@ -1,3 +1,7 @@
+###########################
+# Author: Yue Ning
+# Date: 7.1.2019
+###########################
 import os
 from tqdm import tqdm
 import time

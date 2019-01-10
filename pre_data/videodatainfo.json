@@ -1,0 +1,54 @@
+{
+   "info":{
+      "contributor":"Yue Ning, Kevin Beckmann",
+      "data_created":"2019-01-1 14:30:20",
+      "version":"1.0",
+      "description":"This is 1.0 version of the AI Views dataset.",
+      "year":"2018"
+   },
+   "videos":[
+      {
+         "category":9,
+         "url":"https://www.youtube.com/watch?v=9lZi22qLlEo",
+         "video_id":"video20",
+         "start_time":0,
+         "end_time":14, 
+         "split":"test",
+         "id":0
+      },
+      {
+         "category":9,
+         "url":"https://www.youtube.com/watch?v=9lZi22qLlEo",
+         "video_id":"video24",
+         "start_time":0,
+         "end_time":11,
+         "split":"test",
+         "id":1
+      },
+      {
+         "category":9,
+         "url":"https://www.youtube.com/watch?v=9lZi22qLlEo",
+         "video_id":"video64",
+         "start_time":0,
+         "end_time":10,
+         "split":"test",
+         "id":2
+      },
+      {
+         "category":9,
+         "url":"https://www.youtube.com/watch?v=9lZi22qLlEo",
+         "video_id":"video65",
+         "start_time":0,
+         "end_time":14,
+         "split":"test",
+         "id":3
+      }     
+   ],
+   "sentences":[
+      {
+         "caption":"a cartoon animals runs through an ice cave in a video game",
+         "video_id":"video2960",
+         "sen_id":0
+      }
+   ]
+}

@@ -8,6 +8,10 @@
 
 import os,sys
 import imdb
+import download_trailer
+import imdb_analyse
+import scenedetect
+import deal_video
 
 def main():
     movies = Movies.objects.all()
@@ -15,7 +19,7 @@ def main():
 
 if __name__=='__main__':
     # 加载Django环境，books_management_system是我的Django项目名称
-    sys.path.append('./mk')
+    sys.path.append('../mk')
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
     # 引入Django模块
     import django

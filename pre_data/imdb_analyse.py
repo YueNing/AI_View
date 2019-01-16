@@ -6,9 +6,20 @@
 # E-mail: n1085633848@gmail.com
 ###############################
 
-import os
-
+import os,sys
 from imdb import IMDb
+from tqdm import tqdm
+# 加载Django环境，books_management_system是我的Django项目名称
+sys.path.append('../mk')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
+# 引入Django模块
+import django
+# 初始化Django环境
+django.setup()
+from backend.models import Movies, Movies_Shot
+
+def movie_mysql():
+        return 0
 
 def get_title_id(url):
     title_id = url.split('/')[4]
@@ -21,8 +32,6 @@ def analyse_videos(title_id):
     director = movie['director']
     cover_url = movie['cover_url']
     plot = movie['plot']
-    save_to = movie_mysql()
-    save_to.save(movie)
 
 def read_from_file(opt):
     with open(opt['input'], 'r', encoding='UTF-8') as f:
@@ -40,14 +49,18 @@ def get_genre(ia):
         print(movie['title'])
         print(*movie['genres'], sep=", ")
     
-def main():
+def main(opt):
+    movies = Movies.objects.all()
+    import pdb
+    pdb.set_trace()
     ia = IMDb()
     the_matrix = ia.get_movie('0133093')
     #print(the_matrix['director'])
-    #print(ia.get_movie_infoset())
-    #dystopia = ia.get_k
-    #keyword('ai', results=5)
-    print(the_matrix['imdb'])
-    #get_genre(ia)
+    # #print(ia.get_movie_infoset())
+    # #dystopia = ia.get_k
+    # #keyword('ai', results=5)
+    # print(the_matrix['imdb'])
+    # #get_genre(ia)
 if __name__ == "__main__":
-    main()
+    opt={}
+    main(opt)

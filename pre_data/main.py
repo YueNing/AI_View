@@ -12,19 +12,36 @@ import download_trailer
 import imdb_analyse
 import scenedetect
 import deal_video
+from tqdm import tqdm
+
+def download(opt):
+    download_trailer.main(opt)
 
 def main():
-    movies = Movies.objects.all()
-    print(movies)
+    opt = {}
+    opt['downloader'] = 'youtube-dl'
+    opt['output_dir'] = 'source_videos'
+    with open('videos_url') as f:
+        print('download now the videos')
+        urls = f.readlines()
+        for url in urls:
+            opt['url'] = url.strip()
+            opt['name'] = opt['url'].split('/')[4]
+            download(opt)
+            # imdb_analyse.main(opt)
+            # import pdb
+            # pdb.set_trace()
+            #movies = Movies.objects.all()
+            #print(movies)
+            print('set download task: %s'%(opt['name']))
+        print('finish set the download tasks and wait for minutens')
+        print('start to analyse the movies and save related information to database')
+        for movie in urls:
+            opt['url'] = movie.strip()
+            opt['name'] = opt['url'].split('/')[4]
+            imdb_analyse.main(opt)
+        print('finish analyse the movies and save function')
+        
 
 if __name__=='__main__':
-    # 加载Django环境，books_management_system是我的Django项目名称
-    sys.path.append('../mk')
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
-    # 引入Django模块
-    import django
-
-    # 初始化Django环境
-    django.setup()
-    from backend.models import Movies, Movies_Shot
     main()

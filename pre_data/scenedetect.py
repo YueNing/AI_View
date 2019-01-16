@@ -11,7 +11,8 @@ import os
 import subprocess
 
 def get_command(opt):
-    output_dir = 'my_video_scenes_tmp/'+ opt['title_id']    
+    output_dir = 'my_video_scenes_tmp/'+ opt['title_id']
+    opt['slot_output_dir'] = output_dir
     if not os.path.isdir(output_dir):
         os.makedirs(output_dir)
     command = "scenedetect --input {} --output {} --stats my_video.stats.csv detect-content list-scenes split-video".format(opt['input_video'], output_dir)
@@ -19,7 +20,7 @@ def get_command(opt):
 
 def process_split(opt):
     response = ''
-    if opt['command']:
+    if opt['input_video'] and not os.listdir(opt['slot_output_dir']):
         subprocess.check_output(
             opt['command'],
             shell=True, # Let this run in the shell
@@ -28,7 +29,7 @@ def process_split(opt):
         response = "successfully split the video: {}".format(opt['title_id'])
         return response
     else:
-        response = 'error command'
+        response = 'check Whether the download was successful or check split result directory(finished)'
         return response
 
 def main(opt):

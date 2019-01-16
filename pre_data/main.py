@@ -38,7 +38,7 @@ def main():
         print('start to analyse the movies and save related information to database')
         for movie in urls:
             opt['url'] = movie.strip()
-            opt['name'] = opt['url'].split('/')[4]
+            opt['name'] =  opt['title_id'] = opt['url'].split('/')[4]
             imdb_analyse.main(opt)
         print('finish analyse the movies and save function')
         

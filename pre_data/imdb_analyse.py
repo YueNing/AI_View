@@ -7,7 +7,7 @@
 ###############################
 
 import os,sys
-from datetime import datetime
+import datetime
 from imdb import IMDb
 from tqdm import tqdm
 import subprocess
@@ -60,18 +60,20 @@ class movie_analyse():
                                 shell=True, # Let this run in the shell
                                 stderr=subprocess.STDOUT
                         )
-                        return float(output)
+                        
+                        return datetime.timedelta(seconds=float(output))
 
 class Save():
         def __init__(self, data):
                 self.data = data
                 self.response = self.process()
         def process(self):
-                return 'successful save the data'
+                return 'successful save the data: %s'%(self.data['movie_id'])
 
 def analyse_videos(opt):
        movie = movie_analyse(opt)
        save_data = {}
+       save_data['movie_id'] = movie.movie_id
        save_data['title'] = movie.title
        save_data['genres'] = movie.genres
        save_data['director'] =movie.director

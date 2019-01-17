@@ -1,7 +1,12 @@
-###########################
+###############################
 # Author: Yue Ning
-# Date: 7.1.2019
-###########################
+# Datum: 7.01.2019
+# Last change Datum: 16.1.2019
+# Location: KIT
+# File_Name: downloader
+# E-mail: n1085633848@gmail.com
+###############################
+
 import os
 from tqdm import tqdm
 import time
@@ -21,8 +26,20 @@ def wget_downloader(opt):
                 print("%s download finish"%(filename))
                 time.sleep(1)
 
-def youtube_dl_downloader(opt):
-    if opt['downloader'] == 'youtube-dl':
+def youtube_dl_downloader(opt=None):
+    if opt['downloader'] == 'youtube-dl' and opt['url']:
+        if not opt['name']:
+            if not os.path.isfile(opt['output_dir']+'/'+opt['name']+'.mp4'):
+                print('don not have video name opt, then default save the videos')
+                command = ["youtube-dl", '-o', opt['output_dir']+'/'+'%(title)s.%(ext)s'+'.mp4', opt['url']]
+                subprocess.Popen(command)
+        else:
+            if not os.path.isfile(opt['output_dir']+'/'+opt['name']+'.mp4'):
+                with open(os.devnull, 'w') as youtube_dl_log:           
+                    command = ["youtube-dl", '-o', opt['output_dir']+'/'+opt['name']+'.mp4', opt['url']]
+                    subprocess.Popen(command, stdout=youtube_dl_log, stderr=youtube_dl_log)
+
+    elif opt['downloader'] == 'youtube-dl' and opt['input'] and opt['output_dir']:
         global index
         index = 0
         with open(os.devnull, 'w') as youtube_dl_log:
@@ -31,24 +48,26 @@ def youtube_dl_downloader(opt):
                     command =["youtube-dl", '-o', opt['output_dir']+'/'+'%(title)s.%(ext)s'+'.mp4', line.strip()]
                     index = index + 1
                     subprocess.Popen(command, stdout=youtube_dl_log,stderr=youtube_dl_log)
+    else:
+        print('parameters is erros')
 
 def you_get_downloader(opt):
     return
 
-def select_downloader(downloader):
+def select_downloader(downloader, opt):
     selected_downloader = {
         'youtube-dl': youtube_dl_downloader(opt),
         'you-get': you_get_downloader(opt),
         'wget': wget_downloader(opt),
         'curl': curl_downloader(opt)
     }
-    print(downloader)
+    # print(downloader)
     return selected_downloader.get(downloader, None)
 
 def main(opt):
     if not os.path.isdir(opt['output_dir']):
         os.makedirs(opt['output_dir'])
-    select_downloader(opt['downloader'])
+    select_downloader(opt['downloader'], opt)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

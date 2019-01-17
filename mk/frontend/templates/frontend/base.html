@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="nojs html css_verticalspacer" lang="de-DE">
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <meta name="generator" content="2018.1.0.386"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {%block topothersripts %}{%endblock%}
+    <title>{% block title %}Medienkusnt AI Film{% endblock %} - Yue Ning / kbeckmann</title>
+    <script type="text/javascript">
+    // Update the 'nojs'/'js' class on the html node
+    document.documentElement.className = document.documentElement.className.replace(/\bnojs\b/g, 'js');
+    // Check that all required assets are uploaded and up-to-date
+    if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["/static/js/museutils.js", "/static/js/museconfig.js", "/static/js/jquery.watch.js", "/static/js/require.js", "/static/css/index.css"], "outOfDate":[]};
+    </script>
+    <link rel="stylesheet" type="text/css" href="/static/css/site_global.css?crc=444006867"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css?crc=4052304904" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/genre_selection.css?crc=3932698509" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/drama_theme_selection.css?crc=3922662712" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/action_theme_selection.css?crc=3960931120" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/comedy_theme_selection.css?crc=323515416" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/drama_loss_plot_selection.css?crc=4149341680" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/drama_kidnapping_plot_selection.css?crc=115423996" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/drama_identity_crisis_plot_selection.css?crc=3779960749" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/comedy_surrealism_plot_selection.css?crc=500732908" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/comedy_confusion_plot_selection.css?crc=191003402" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/comedy_relationship_plot_selection.css?crc=4194042922" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/action_war_plot_selection.css?crc=406785257" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/action_space_plot_selection.css?crc=220576135" id="pagesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/action_competition_plot_selection.css?crc=3836748503" id="pagesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style type="text/css">
+      body {background-color:#F6F6F6;}
+    </style>
+  </head>
+
+  <body class='text-center'>
+    <!-- Button trigger modal -->
+    <a id='inforamtion_modal' data-toggle="modal" data-target="#exampleModalLong"></a>
+    <a id='about_modal' data-toggle="modal" data-target="#aboutModal"></a>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">System introduction</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h6>This is AI View System!</h6>
+            <p>This system are controlled both by voice and mouse keyboard</p>
+            <h6>voice command:</h6>
+                <ul>
+                    <li><b>show information</b</li>
+                    <li><b>start</b></li>
+                    <li><b>drama</b></li>
+                    <li><b>action</b></li>
+                    <li><b>comedy</b></li>
+                    <li><b>about</b></li>
+                    <li>....</li>
+                </ul>
+            <p>develop by Kevin, Yue, Yang.</p>
+          </div>
+          <div class="modal-footer">
+            <button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">About System</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h5>Developer</h5>
+                <p>This project developed by</p>
+                <li><a href="https://github.com/datadrivennarratives">@Kevin Beckmann</a></li> 
+                <li><a href="https://github.com/yuening">@Yue Ning</a></li>
+                <li><a href="https://github.com/brankyy">@Yang Yang</a></li>
+            <hr>
+            <h5>About Links</h5>
+            <p><a href="/frontend" class="tooltip-test" title="Tooltip">Website</a> and <a href="https://github.com/datadrivennarratives/AI_View" class="tooltip-test" title="Tooltip">source code</a> are open source code MIT License.</p>
+    </div>
+            <div class="modal-footer">
+            <button id="close_about" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Small modal -->
+    <a id='error_modal' data-toggle="modal" data-target="#error-modal"></a>
+    <div class="modal fade bd-example-modal-sm" id="error-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <h5>
+        <div id="error_modal_content" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Error Command</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div id="error_modal_content_body" class="modal-body">
+                <p>Don not have this command!</p>
+            </div>
+            <div class="modal-footer">
+                <button id="close_error_command" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    {% block content %}
+    <div>This is default template</div>
+    {% endblock %}
+    
+    {% include 'frontend/bottom.html' %}
+
+    <script>
+    if (annyang) {
+      // Let's define a command.
+      var commands = {
+        'hello': function() { 
+            alert('Hello World');
+        },
+        'start': function() { 
+        var start = document.getElementById('u118-4');
+        start.click();},
+        'action': function() { 
+        var action = document.getElementById('u153-4');
+        action.click();},
+        'drama': function() { 
+        var drama = document.getElementById('u163-4');
+        drama.click();},
+        'comedy': function() { 
+        var comedy = document.getElementById('u169-4');
+        comedy.click();},
+        'identity crisis': function() { 
+        var identity_crisis = document.getElementById('u200-4');
+        identity_crisis.click();},
+        'loss': function() { 
+        var loss = document.getElementById('u207-4');
+        loss.click();},
+        'kidnapping': function() { 
+        var kidnapping = document.getElementById('u206-4');
+        kidnapping.click();},
+        'relationship': function() { 
+        var relationship = document.getElementById('u273-4');
+        relationship.click();},
+        'confusion': function() { 
+        var confusion = document.getElementById('u284-4');
+        confusion.click();},
+        'surrealism': function() { 
+        var surrealism = document.getElementById('u274-4');
+        surrealism.click();},
+        'competition': function() { 
+        var competition = document.getElementById('u254-4');
+        competition.click();},
+        'war': function() { 
+        var war = document.getElementById('u259-4');
+        war.click();},
+        'space': function() { 
+        var space = document.getElementById('u255-4');
+        space.click();},
+        'start again': function() {
+            window.location = '/frontend';
+        },
+        'show (system) information': function() {
+            inforamtion_modal = document.getElementById('inforamtion_modal');
+            inforamtion_modal.click();
+        },
+        'close (page)': function() {
+            var close = document.getElementById('close');
+            var close_about = document.getElementById('close_about');
+            var close_error_command = document.getElementById('close_error_command');
+            close.click();
+            close_about.click();
+            close_error_command.click();
+        },
+        'about': function() {
+            url = 'https://github.com/datadrivennarratives/AI_View';
+            about_modal = document.getElementById('about_modal');
+            about_modal.click();
+        }
+      };
+
+      annyang.addCommands(commands);
+      annyang.start({ autoRestart: false });
+      annyang.addCallback('error', function() {
+        $('.myErrorText').text('There was an error!');
+      });
+
+      annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
+        console.log('user Said', userSaid); // sample output: 'hello'
+        console.log('command text', commandText); // sample output: 'hello (there)'
+        console.log('phrases', phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+      });
+      annyang.addCallback('resultNoMatch', function(userSaid) {
+        var error_modal = document.getElementById('error_modal');
+        var error_modal_content = document.getElementById('error_modal_content_body');
+        while (error_modal_content_body.firstChild) {
+            error_modal_content_body.removeChild(error_modal_content_body.firstChild);
+        }
+        var p = document.createElement("p");
+        var textnode1 = document.createTextNode('don not have this command');
+        var textnode2 = document.createTextNode(userSaid[0]);
+        p.appendChild(textnode2);
+        error_modal_content_body.appendChild(textnode1);
+        error_modal_content_body.appendChild(p);
+        error_modal.click();
+        console.log('don not have the command', userSaid);
+      })
+      SpeechKITT.annyang();
+
+      // Define a stylesheet for KITT to use
+      SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat-pumpkin.css');
+
+      // Render KITT's interface
+      SpeechKITT.vroom();
+    }
+    </script>
+
+    {% block bottomotherscripts%}{%endblock%}
+
+    <script type="text/javascript">
+      // Decide whether to suppress missing file error or not based on preference setting
+    var suppressMissingFileError = false
+    </script>
+
+      <script type="text/javascript">
+      window.Muse.assets.check=function(c){if(!window.Muse.assets.checked){window.Muse.assets.checked=!0;var b={},d=function(a,b){if(window.getComputedStyle){var c=window.getComputedStyle(a,null);return c&&c.getPropertyValue(b)||c&&c[b]||""}if(document.documentElement.currentStyle)return(c=a.currentStyle)&&c[b]||a.style&&a.style[b]||"";return""},a=function(a){if(a.match(/^rgb/))return a=a.replace(/\s+/g,"").match(/([\d\,]+)/gi)[0].split(","),(parseInt(a[0])<<16)+(parseInt(a[1])<<8)+parseInt(a[2]);if(a.match(/^\#/))return parseInt(a.substr(1),
+    16);return 0},f=function(f){for(var g=document.getElementsByTagName("link"),j=0;j<g.length;j++)if("text/css"==g[j].type){var l=(g[j].href||"").match(/\/?css\/([\w\-]+\.css)\?crc=(\d+)/);if(!l||!l[1]||!l[2])break;b[l[1]]=l[2]}g=document.createElement("div");g.className="version";g.style.cssText="display:none; width:1px; height:1px;";document.getElementsByTagName("body")[0].appendChild(g);for(j=0;j<Muse.assets.required.length;){var l=Muse.assets.required[j],k=l.match(/([\w\-\.]+)\.(\w+)$/),i=k&&k[1]?
+    k[1]:null,k=k&&k[2]?k[2]:null;switch(k.toLowerCase()){case "css":i=i.replace(/\W/gi,"_").replace(/^([^a-z])/gi,"_$1");g.className+=" "+i;i=a(d(g,"color"));k=a(d(g,"backgroundColor"));i!=0||k!=0?(Muse.assets.required.splice(j,1),"undefined"!=typeof b[l]&&(i!=b[l]>>>24||k!=(b[l]&16777215))&&Muse.assets.outOfDate.push(l)):j++;g.className="version";break;case "js":j++;break;default:throw Error("Unsupported file type: "+k);}}c?c().jquery!="1.8.3"&&Muse.assets.outOfDate.push("jquery-1.8.3.min.js"):Muse.assets.required.push("jquery-1.8.3.min.js");
+    g.parentNode.removeChild(g);if(Muse.assets.outOfDate.length||Muse.assets.required.length)g="Einige der Dateien auf dem Server fehlen oder sind ungültig. Löschen Sie den Browser-Cache und versuchen Sie es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an den Autor der Website.",f&&Muse.assets.outOfDate.length&&(g+="\nOut of date: "+Muse.assets.outOfDate.join(",")),f&&Muse.assets.required.length&&(g+="\nMissing: "+Muse.assets.required.join(",")),suppressMissingFileError?(g+="\nUse SuppressMissingFileError key in AppPrefs.xml to show missing file error pop up.",console.log(g)):alert(g)};location&&location.search&&location.search.match&&location.search.match(/muse_debug/gi)?
+    setTimeout(function(){f(!0)},5E3):f()}};
+    var muse_init=function(){require.config({baseUrl:""});require(["/static/js/jquery.js","/static/js/museutils.js","/static/js/whatinput.js","/static/js/jquery.watch.js"],function(c){var $ = c;$(document).ready(function(){try{
+    window.Muse.assets.check($);/* body */
+    Muse.Utils.transformMarkupToFixBrowserProblemsPreInit();/* body */
+    Muse.Utils.prepHyperlinks(true);/* body */
+    Muse.Utils.makeButtonsVisibleAfterSettingMinWidth();/* body */
+    Muse.Utils.fullPage('#page');/* 100% height page */
+    Muse.Utils.showWidgetsWhenReady();/* body */
+    Muse.Utils.transformMarkupToFixBrowserProblems();/* body */
+    }catch(b){if(b&&"function"==typeof b.notify?b.notify():Muse.Assert.fail("Error calling selector function: "+b),false)throw b;}})})};
+
+    </script>
+      <!-- RequireJS script -->
+      <script src="/static/js/require.js?crc=7928878" type="text/javascript" async data-main="/static/js/museconfig.js?crc=310584261" onload="if (requirejs) requirejs.onError = function(requireType, requireModule) { if (requireType && requireType.toString && requireType.toString().indexOf && 0 <= requireType.toString().indexOf('#scripterror')) window.Muse.assets.check(); }" onerror="window.Muse.assets.check();"></script>
+  </body>
+</html>

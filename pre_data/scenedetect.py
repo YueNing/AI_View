@@ -29,11 +29,12 @@ def process_split(opt):
         response = "successfully split the video: {}".format(opt['title_id'])
         return response
     else:
-        response = 'check Whether the download was successful or check split result directory(finished)'
+        response = 'Warning:check Whether the download was successful or check split result directory(finished): {}'.format(opt['title_id'])
         return response
 
 def main(opt):
     command = get_command(opt)
     opt['command'] = command
     response = process_split(opt)
+    opt.pop('slot_output_dir', None)
     return response

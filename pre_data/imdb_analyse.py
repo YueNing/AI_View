@@ -91,7 +91,7 @@ def get_genre(ia):
         # Print movie title and genres
         print(movie['title'])
         print(*movie['genres'], sep=", ")
-    
+
 def main(opt):
         # import pdb
         # pdb.set_trace()

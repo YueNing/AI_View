@@ -43,7 +43,7 @@ def main():
         print('finish set the download tasks and wait for minutens\n')
         print('start to analyse the movies and save related information to database')
         #----------------------------------------------------------------------------
-        # add check function to check the information already saved or not?
+        # TODO: add check function to check the information already saved or not?
         #----------------------------------------------------------------------------
         for movie in urls:
             opt['url'] = movie.strip()
@@ -63,7 +63,7 @@ def main():
         opt.pop('source_videos', None)
         print('finished split function\n')
         #----------------------------------------
-        # get caption and shot analyse save slot informations into database?
+        # TODO: get caption and shot analyse save slot informations into database?
         #----------------------------------------
         print('start to get caption and analyse shots')
         for video in urls:

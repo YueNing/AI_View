@@ -129,7 +129,7 @@ def main(opt_video_datainfo, opt_eval):
                 opt_eval['feats_dir'] = ['data/feats/resnet152/'+opt['name']]
                 opt_eval['results_path'] = 'results/'+opt['name']
                 opt['results_path'] = opt_eval['results_path']
-
+                opt['shots_dir'] = 'my_video_scenes_tmp/'
                 exist_video = check_video(opt)
                 not_in_database = check_database(opt['name'])
                 not_in_database_movie_shots = check_database_for_shots(opt['name'])

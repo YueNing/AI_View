@@ -20,10 +20,12 @@ class Movies(models.Model):
     full_time = models.DurationField()
 
 class Movies_Shot(models.Model):
+    shot_id = models.CharField(max_length=10)
     title = models.CharField(max_length=100) 
     genre = models.CharField(max_length=30)
     video_url = models.URLField(max_length=200)
     start_time = models.DurationField()
     end_time = models.DurationField()
+    caption = models.CharField(max_length=250)
     movies = models.ForeignKey('Movies', on_delete=models.CASCADE)
 

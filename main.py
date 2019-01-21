@@ -111,7 +111,11 @@ def main(opt_video_datainfo, opt_eval):
             print("INFO:Process videos......................")
             for url in urls:
                 opt['url'] = url.strip()
-                opt['name'] = opt['url'].split('/')[4]
+                opt['title_id'] = opt['name'] = opt['url'].split('/')[4]
+                opt['source_videos'] = opt['output_dir']
+                input_video = opt['output_dir']+'/'+opt['name']+'.mp4'
+                opt['input_video'] = input_video
+
                 exist_video = check_video(opt)
                 not_in_database = check_database(opt['name'])
                 not_split = check_split(opt['name'])
@@ -120,34 +124,30 @@ def main(opt_video_datainfo, opt_eval):
                 print("video:{} processed now.........".format(opt['name']))
                 if exist_video:
                     if not_in_database:
-                        print("\n start analyse video:{} and save data".format(opt['name']))
-                        opt['title_id'] =  opt['name']
+                        print("start analyse video:{} and save data".format(opt['name']))
                         imdb_analyse.main(opt)
                         print("|n finish analyse video:{}".format(opt['name']))
                     else:
                         print('already saved into database!'.format(opt['name']))
                     if exist_video and not_split:
-                        print("\n start split video:{}".format(opt['name']))
-                        opt['source_videos'] = opt['output_dir']
-                        input_video = opt['output_dir']+'/'+opt['name']+'.mp4'
-                        opt['input_video'] = input_video
+                        print("start split video:{}".format(opt['name']))
                         response = scenedetect.main(opt)
                         print(response)
-                        print("\n finish split video:{}".format(opt['name']))
+                        print("finish split video:{}".format(opt['name']))
                     else:
                         print('already split'.format(opt['name']))
                     
                     if exist_video and not_extracted:
-                        print("\n extract feats........")
+                        print("extract feats........")
                         caption.extract_feats(opt_video_datainfo)
-                        print("\n extract feats finish")
+                        print("extract feats finish")
                     else:
                         print('already extracted '.format(opt['name']))
                                     
                     if exist_video and not_get_caption:
-                        print("\n get the caption")
+                        print("get the caption")
                         caption.get_caption(opt_eval)
-                        print("\n finish get the caption")
+                        print("finish get the caption")
                     else:
                         print('already get the caption '.format(opt['name']))
                 else:

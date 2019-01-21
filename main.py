@@ -20,7 +20,7 @@ from pretrainedmodels import utils
 import torch
 from torch import nn
 from eval import main as result_caption
-from pre_data import imdb_analyse,download_trailer,scenedetect,caption
+from pre_data import imdb_analyse,download_trailer,scenedetect,caption,shots_analyse
 # 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('./mk')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
@@ -59,15 +59,23 @@ def check_videos(output_dir):
             return False
 
 def check_video(opt):
-    video = os.path.isfile(opt['output_dir']+opt['name']+'.mp4')
+    video = opt['output_dir']+opt['name']+'.mp4'
     if os.path.exists(video):
         return True
     else:
         print('video:{} is not downloaded'.format(opt['name']))
 
+def check_extracted(opt_eval, opt):
+    feats_dir = opt_eval['feats_dir'][0]
+    if os.path.exists(feats_dir) and os.path.isdir(feats_dir):
+        if not os.listdir(feats_dir):
+            return True
+        else:
+            return False
+    else:
+        return True
+
 def check_database(name):
-    # import pdb
-    # pdb.set_trace()
     if not Movies.objects.filter(title_id=name[2:]):
         return True
     else:
@@ -118,13 +126,16 @@ def main(opt_video_datainfo, opt_eval):
                 opt['source_videos'] = opt['output_dir']
                 input_video = opt['output_dir']+'/'+opt['name']+'.mp4'
                 opt['input_video'] = input_video
+                opt_eval['feats_dir'] = ['data/feats/resnet152/'+opt['name']]
+                opt_eval['results_path'] = 'results/'+opt['name']
+                opt['results_path'] = opt_eval['results_path']
 
                 exist_video = check_video(opt)
                 not_in_database = check_database(opt['name'])
                 not_in_database_movie_shots = check_database_for_shots(opt['name'])
-                # not_split = check_split(opt['name'])
-                not_split = False
-                not_extracted = False
+                not_split = check_split(opt['name'])
+                #not_split = False
+                not_extracted = check_extracted(opt_eval, opt)
                 not_get_caption = True
                 print("video:{} processed now.........".format(opt['name']))
                 if exist_video:
@@ -144,24 +155,19 @@ def main(opt_video_datainfo, opt_eval):
                     else:
                         print('already split')
                     
-                    #TODO: feats extract function
+                    # * FUNC: feats extract function
                     if  not_extracted:
                         print("extract feats video:{}".format(opt['name']))
-                        # import pdb
-                        # pdb.set_trace()
                         opt_video_datainfo['video_path'] = 'my_video_scenes_tmp/'+ opt['name']
                         caption.extract_feats(opt_video_datainfo)
                         print("extract feats finish video:{}".format(opt['name']))
                     else:
                         print('already extracted ')
 
-                    #TODO: get caption function               
+                    # * FUNC: get caption function
+                    # ? UnicodeError remove print(seq_preds)               
                     if  not_get_caption:
                         print("get the caption video:{}".format(opt['name']))
-                        # opt_eval['feats_dir'] = ['data/feats/resnet152/test-video']
-                        opt_eval['feats_dir'] = ['data/feats/resnet152/'+opt['name']]
-                        # file_eval_out = open(opt_eval['recover_opt'], 'w')
-                
                         json_data = json.load(open(opt_eval['recover_opt']))
                         json_data['feats_dir'] = opt_eval['feats_dir']
                         open(opt_eval['recover_opt'], 'w').write(json.dumps(json_data))
@@ -173,14 +179,6 @@ def main(opt_video_datainfo, opt_eval):
                         for i in range(len(os.listdir(opt_eval['feats_dir'][0]))):
                             json_data_info['videos']['test'].append(i+1)
                         open(opt_eval['info_json'], 'w').write(json.dumps(json_data_info))
-                        # json_data['feats_dir'] = opt_eval
-                        # file_eval_out.write(json.jumps(json_data))
-                        # file_in_info_json = open(opt_eval['info_json'])
-                        # opt_eval['feats_dir'] = 'data/feats/resnet152/'+opt['name']
-                        # json.load(open(opt_eval['recover_opt']))[]
-                        # temp_opt = json.load(open(opt_eval['info_json']))['videos']
-                        # temp_opt['train']=[]
-                        # temp_opt['test'] =[]
                         caption.get_caption(opt_eval)
                         print("finish get the caption video:{}".format(opt['name']))
                     else:
@@ -190,6 +188,7 @@ def main(opt_video_datainfo, opt_eval):
                     #TODO: save information into database Movie_shot
                     if not_in_database_movie_shots:
                         print("start analyse shots of video:{}".format(opt['name']))
+                        shots_analyse.main(opt)
                         print("finish analyse shots of video:{}".format(opt['name']))
                     else:
                         print('already save video:{}'.format(opt['name']))

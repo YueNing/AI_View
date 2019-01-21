@@ -15,6 +15,7 @@ import subprocess
 
 # 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('../mk')
+sys.path.append('./mk')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
 # 引入Django模块
 import django
@@ -69,8 +70,13 @@ class Save():
                 self.data = data
                 self.response = self.process()
         def process(self):
-                return 'successful save the data: %s'%(self.data['movie_id'])
-
+                if not Movies.objects.filter(title_id=self.data['movie_id']):
+                        movie = Movies(title=self.data['title'], genres=self.data['genres'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
+                        movie.save()
+                        return 'successful save the data: %s'%(self.data['movie_id'])
+                else:
+                        return 'can not save! exist'
+                
 def analyse_videos(opt):
        movie = movie_analyse(opt)
        save_data = {}

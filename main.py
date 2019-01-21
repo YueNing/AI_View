@@ -4,7 +4,7 @@
 # Submission:                      #
 # Instructor:                      #
 # Date created: 1/1/2019           #
-# Date last modified: 4/1/2019     #
+# Date last modified: 20/1/2019     #
 # Python Version: 3.5              #
 ####################################
 
@@ -19,7 +19,16 @@ import pretrainedmodels
 from pretrainedmodels import utils
 import torch
 from torch import nn
-from eval import main as result_caption 
+from eval import main as result_caption
+from pre_data import imdb_analyse,download_trailer,scenedetect,caption
+# 加载Django环境，books_management_system是我的Django项目名称
+sys.path.append('./mk')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
+# 引入Django模块
+import django
+# 初始化Django环境
+django.setup()
+from backend.models import Movies, Movies_Shot
 # first need to get source-video and edit the videodatainfo.json 
 # run the under command get the test video
 # python deal_video.py --video_input_path data/source-video/ --video_output_path data/test-video/  --videodatainfo videodatainfo.json
@@ -37,52 +46,113 @@ from eval import main as result_caption
 	source_video_path,
 	result_caption_path
 '''
-def get_caption(opt):
+def get_caption(opt_eval):
 	opt_eval['model'] = opt_eval['generate_caption_model']
 	result_caption(opt_eval)
 
-def extract_feats(args):
-    params = args
-    if params['model'] == 'inception_v3':
-        C, H, W = 3, 299, 299
-        model = pretrainedmodels.inceptionv3(pretrained='imagenet')
-        load_image_fn = utils.LoadTransformImage(model)
+def check_videos(output_dir):
+    videos = os.listdir(output_dir)
+    for video in videos:
+        if video.endswith('.mp4'):
+            return True
+        else:
+            return False
 
-    elif params['model'] == 'resnet152':
-        C, H, W = 3, 224, 224
-        model = pretrainedmodels.resnet152(pretrained='imagenet')
-        load_image_fn = utils.LoadTransformImage(model)
-
-    elif params['model'] == 'inception_v4':
-        C, H, W = 3, 299, 299
-        model = pretrainedmodels.inceptionv4(
-            num_classes=1000, pretrained='imagenet')
-        load_image_fn = utils.LoadTransformImage(model)
-
+def check_video(opt):
+    video = os.path.isfile(opt['output_dir']+opt['name']+'.mp4')
+    if os.path.exists(video):
+        return True
     else:
-        print("doesn't support %s" % (params['model']))
+        print('video:{} is not downloaded'.format(opt['name']))
 
-    model.last_linear = utils.Identity()
-    model = nn.DataParallel(model)
-    # if params['saved_model'] != '':
-    #     model.load_state_dict(torch.load(params['saved_model']), strict=False)
-    model = model.cuda()
-    prepro_feats.extract_feats(params, model, load_image_fn)
+def check_database(name):
+    # import pdb
+    # pdb.set_trace()
+    if not Movies.objects.filter(title_id=name[2:]):
+        return True
+    else:
+        return False
+
+def check_split(name):
+    check_dir = 'my_video_scenes_tmp/'+name
+    if os.path.exists(check_dir) and os.path.isdir(check_dir):
+        if not os.listdir(check_dir):
+            return True
+        else:
+            return False
+    else:
+        return True
 
 def main(opt_video_datainfo, opt_eval):
-	print("split video to 5s video....")
-	extract_frames_5s(opt_video_datainfo)
-	print("split video finish")
-	print("\n extract feats........")
-	extract_feats(opt_video_datainfo)
-	print("\n extract feats finish")
-	print("\n get the caption")
-	get_caption(opt_eval)
-	print("\n finish get the caption")
-	#prepro_feats()
-	#eval()
-	#os.system("python prepro_feats.py --output_dir data/feats/resnet152 --model resnet152 --n_frame_steps 40  --gpu 0 --video_path data/test-video")
-	#os.system("eval.py --recover_opt data/save/opt_info.json")
+	#print("split video to 5s video....")
+	#extract_frames_5s(opt_video_datainfo)
+	#print("split video finish")
+    opt = {}
+    opt['downloader'] = 'youtube-dl'
+    opt['output_dir'] = 'data/source_videos/'
+    with open('pre_data/videos_url') as f:
+        print('INFO:download now the videos.....')
+        urls = f.readlines()
+        for url in urls:
+            opt['url'] = url.strip()
+            opt['name'] = opt['url'].split('/')[4]
+            if os.path.isfile(opt['output_dir']+opt['name']+".mp4"):
+                print('video:{} is already exist'.format(opt['name']))
+            elif os.path.isfile(opt['output_dir']+opt['name']+".mp4.part"):
+                print('download task:{} is already exist '.format(opt['name']))
+                print('finish set the download tasks:{} and wait for minutes\n'.format(opt['name']))              
+            else:
+                download_trailer.main(opt)
+                print('set download task: %s'%(opt['name']))
+        print("INFO:download tasks set finished....\n")
+
+        videos_not_empty = check_videos(opt['output_dir'])
+        if videos_not_empty:
+            print("INFO:Process videos......................")
+            for url in urls:
+                opt['url'] = url.strip()
+                opt['name'] = opt['url'].split('/')[4]
+                exist_video = check_video(opt)
+                not_in_database = check_database(opt['name'])
+                not_split = check_split(opt['name'])
+                not_extracted = False
+                not_get_caption = False
+                print("video:{} processed now.........".format(opt['name']))
+                if exist_video:
+                    if not_in_database:
+                        print("\n start analyse video:{} and save data".format(opt['name']))
+                        opt['title_id'] =  opt['name']
+                        imdb_analyse.main(opt)
+                        print("|n finish analyse video:{}".format(opt['name']))
+                    else:
+                        print('already saved into database!'.format(opt['name']))
+                    if exist_video and not_split:
+                        print("\n start split video:{}".format(opt['name']))
+                        opt['source_videos'] = opt['output_dir']
+                        input_video = opt['output_dir']+'/'+opt['name']+'.mp4'
+                        opt['input_video'] = input_video
+                        response = scenedetect.main(opt)
+                        print(response)
+                        print("\n finish split video:{}".format(opt['name']))
+                    else:
+                        print('already split'.format(opt['name']))
+                    
+                    if exist_video and not_extracted:
+                        print("\n extract feats........")
+                        caption.extract_feats(opt_video_datainfo)
+                        print("\n extract feats finish")
+                    else:
+                        print('already extracted '.format(opt['name']))
+                                    
+                    if exist_video and not_get_caption:
+                        print("\n get the caption")
+                        caption.get_caption(opt_eval)
+                        print("\n finish get the caption")
+                    else:
+                        print('already get the caption '.format(opt['name']))
+                else:
+                    print('don not have this , please check downloaded or not!'.format(opt['name']))
+                print("video:{} processed finished.........\n".format(opt['name']))                
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
@@ -104,7 +174,7 @@ if __name__ == '__main__':
                         help='the CNN model you want to use to extract_feats')
   parser.add_argument('--recover_opt', type=str, default='data/save/opt_info.json',
                         help='recover train opts from saved opt_json')
-  parser.add_argument('--saved_model', type=str, default='data/save/model_800.pth',
+  parser.add_argument('--saved_model', type=str, default='data/save/model_1050.pth',
                         help='path to saved model to evaluate')
   parser.add_argument('--dump_json', type=int, default=1,
                         help='Dump json with predictions into vis folder? (1=yes,0=no)')

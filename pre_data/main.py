@@ -13,7 +13,6 @@ import download_trailer
 import imdb_analyse
 import scenedetect
 import caption
-import shot_analyse
 from tqdm import tqdm
 
 # 加载Django环境，books_management_system是我的Django项目名称

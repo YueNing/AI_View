@@ -74,4 +74,37 @@
         </div>
     </div>
 </div>
+<div id='buttons'></div>
+
+<!-- <button id='drama' type="button" class="btn btn-outline-info btn-lg">Drama</button> -->
+<button id='introduction_button' type="button" class="btn btn-danger btn-lg">Select a genre</button>
+
+<script type="text/javascript">
+    $(document).ready(function (){
+        var r = Math.floor((Math.random() * 30) + 10);
+        var t = Math.floor((Math.random() * 30) + 20);
+        var r2 = Math.floor((Math.random() * 30) + 10);
+        var t2 = Math.floor((Math.random() * 30) + 50); 
+        var l = Math.floor((Math.random() * 30) + 60);
+        var b = Math.floor((Math.random() * 80) + 0);
+
+        var drama = $("<button id='drama' type='button' class='btn btn-outline-info btn-lg'> Drama </button>");
+        var comedy = $("<button id='comedy' type='button' class='btn btn-outline-info btn-lg'>Comedy</button>");
+        var Action = $("<button id='Action' type='button' class='btn btn-outline-info btn-lg'>Action</button>");
+        drama.css({"position": "absolute", "bottom": b+"%", "left": l+"%"});
+        comedy.css({"position": "absolute", "top": t+"%", "left": r+"%"});
+        Action.css({"position": "absolute", "top": t2+"%", "left": r2+"%"});
+        $("#buttons").append(drama);
+        $("#buttons").append(comedy);
+        $("#buttons").append(Action);
+
+        $("#Action").fadeOut();
+        $("#drama").fadeOut();
+        $("#comedy").fadeOut();
+        $("#Action").fadeIn(1000);
+        $("#drama").fadeIn(1000);
+        $("#comedy").fadeIn(1000);
+    })
+</script>
+
 {% endblock %}

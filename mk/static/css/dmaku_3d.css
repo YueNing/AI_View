@@ -1,10 +1,12 @@
-﻿/****************************************************************
- *																*		
- * 						      代码库							*
- *                        www.dmaku.com							*
- *       		  努力创建完善、持续更新插件以及模板			*
+﻿/************************************************************
+ *																*
+ * 						      AI VIEW							*
+ *                        @naodongbanana						*
+ *                        n1085633848@gmail.com					*
+ *       		  Medienkunst project interface					*
  * 																*
-****************************************************************/
+*****************************************************************/
+
 BODY{-webkit-perspective:40em;perspective:40em;-webkit-perspective-origin:center center;perspective-origin:center center;overflow:hidden;font-size:14px;background:#000;background-image:-webkit-linear-gradient(left,rgba(255,255,255,0.025) 50%,transparent 50%);background-image:linear-gradient(to right,rgba(255,255,255,0.025) 50%,transparent 50%);background-size:2rem 100%}
 .container{width:10em;height:10em;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;-webkit-animation:rotate 12s infinite linear;animation:rotate 12s infinite linear}
 .cube{position:absolute;width:10em;height:10em;-webkit-transform-style:preserve-3d;transform-style:preserve-3d}
@@ -28,3 +30,19 @@ BODY{-webkit-perspective:40em;perspective:40em;-webkit-perspective-origin:center
 }@keyframes rotate{100%{-webkit-transform:rotateX(360deg) rotateY(720deg) rotateZ(360deg);transform:rotateX(360deg) rotateY(720deg) rotateZ(360deg)}
 }HTML,BODY{height:100%}
 BODY{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
+
+/* #go_start {
+    position: absolute;
+    bottom: 30%;
+    left: 20%;
+}
+#comedy {
+    position: absolute;
+    bottom: 50%;
+    left: 30%;
+} */
+/* #drama {
+    position: absolute;
+    bottom: 60%;
+    left: 80%;
+} */

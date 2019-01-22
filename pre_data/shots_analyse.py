@@ -8,6 +8,7 @@
 ###############################
 import os,sys
 import datetime
+import csv
 
 # 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('../mk')
@@ -40,26 +41,29 @@ class shots_analyse():
         response = self.save()
         return response
 
-    #TODO: analyse the file video information get the start and end time
-    def analyse_split_video_csv(self, shot):
-        start_time = datetime.timedelta(seconds=0)
-        end_time = datetime.timedelta(seconds=0)
+    #*FUNC: analyse the file video information get the start and end time
+    def analyse_split_video_csv(self):
+        input_file =open(self.opt['shots_dir']+self.opt['name']+'/'+self.opt['name']+'-Scenes.csv')
+        read = csv.reader(input_file)
+        for k, row in enumerate(read):
+            if row[0] == str(int(self.save_data['shot_id'])):
+                start_time = datetime.timedelta(seconds=float(row[3]))
+                end_time = datetime.timedelta(seconds=float(row[6]))                
+                break
         return [start_time, end_time]
 
     #TODO: analyse the file results caption S2VTAttModel.json
-    def analyse_result_caption_json(self, shot):
+    def analyse_result_caption_json(self):
         caption = 'caption shot'
         return caption
     
     def save(self):
         for shot in self.shots_videos:
-            self.analyse_split_video_csv(shot)
-            self.analyse_result_caption_json(shot)
             self.save_data['shot_id'] =  shot.split('-')[2][:-4]
             self.save_data['title'] = self.opt['name']
             self.save_data['video_url'] = self.opt['url']
-            [self.save_data['start_time'], self.save_data['end_time']] = self.analyse_split_video_csv(shot)
-            self.save_data['caption'] = self.analyse_result_caption_json(shot)
+            [self.save_data['start_time'], self.save_data['end_time']] = self.analyse_split_video_csv()
+            self.save_data['caption'] = self.analyse_result_caption_json()
             self.save_data['movies'] = Movies.objects.filter(title_id=self.opt['title_id'][2:])[0]
             if not Movies_Shot.objects.filter(shot_id=self.save_data['shot_id']): 
                 shots_saver = Movies_Shot(shot_id=self.save_data['shot_id'], title=self.save_data['title'],
@@ -68,7 +72,12 @@ class shots_analyse():
                                         movies=self.save_data['movies'], genre=self.save_data['movies'].genres)
                 shots_saver.save()
             else:
-                print('exist shot:{}'.format(self.save_data['shot_id']))
+                shots_saver = Movies_Shot(id=Movies_Shot.objects.filter(shot_id=self.save_data['shot_id'])[0].id, shot_id=self.save_data['shot_id'], title=self.save_data['title'],
+                        video_url=self.save_data['video_url'], start_time=self.save_data['start_time'],
+                        end_time=self.save_data['end_time'], caption=self.save_data['caption'], 
+                        movies=self.save_data['movies'], genre=self.save_data['movies'].genres)
+                shots_saver.save()                
+                print('exist shot:{}, update the data'.format(self.save_data['shot_id']))
         return "finish save shots"
 
 def main(opt):

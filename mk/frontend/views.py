@@ -1,7 +1,10 @@
+import json
 from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, render_to_response
+from backend.models import Movies, Movies_Shot
+
 def index(request):
     return render_to_response('frontend/index+.html')
 
@@ -39,4 +42,11 @@ def index_particle(request):
     return render_to_response('frontend/index_particle.html')
 
 def index_go(request):
-    return render_to_response('frontend/index_go.html')
+    show_genres = []
+    genres = Movies.objects.values('genres')
+    for genre in genres:
+        for key, value in genre.items():
+            if value not in show_genres:
+                show_genres.append(value)
+    context = json.dumps({'genres':show_genres})
+    return render(request, 'frontend/index_go.html',{"context":context})

@@ -111,8 +111,17 @@
   		gl_Position = perspectiveMatrix * modelViewMatrix * vec4(  vertexPosition, 1.0);
   	}
 </script>
-  
-    <script src="/static/js/dmaku.js"></script>
+
+<script type="text/javascript">
+  	$(document).ready(function (){
+		$('#start_button').fadeOut();
+		$('#about_button').fadeOut();
+		$('#start_button').fadeIn(1000);
+		$('#about_button').fadeIn(1000);
+	})
+</script>
+
+<script src="/static/js/dmaku.js"></script>
 
 </body>
 </html>

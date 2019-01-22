@@ -81,30 +81,56 @@
 
 <script type="text/javascript">
     $(document).ready(function (){
-        var r = Math.floor((Math.random() * 30) + 10);
-        var t = Math.floor((Math.random() * 30) + 20);
-        var r2 = Math.floor((Math.random() * 30) + 10);
-        var t2 = Math.floor((Math.random() * 30) + 50); 
-        var l = Math.floor((Math.random() * 30) + 60);
-        var b = Math.floor((Math.random() * 80) + 0);
+        
+        var data = {{ context|safe }};
+        $.each(data['genres'], function(index, item){
+            console.log(index);
+            console.log(item);
+            if(index%2==0){
+                console.log('into 0');
+                var r = Math.floor((Math.random() * 30) + 60);
+                var t = Math.floor((Math.random() * 20) + 25*(index+1)%80);
+                var item_var = $("<button id="+item+" type='button' class='btn btn-outline-info btn-lg'>"+item+"</button>");
+                console.log(r);
+                item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
+                $("#buttons").append(item_var);
+            }
+            else{
+                console.log('into 1');
+                var l = Math.floor((Math.random() * 30) + 60);
+                var t = Math.floor((Math.random() * 20) + 20*(index+1)%80);
+                var item_var = $("<button id="+item+" type='button' class='btn btn-outline-info btn-lg'>"+item+"</button>");
+                item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
+                $("#buttons").append(item_var);
+            };
 
-        var drama = $("<button id='drama' type='button' class='btn btn-outline-info btn-lg'> Drama </button>");
-        var comedy = $("<button id='comedy' type='button' class='btn btn-outline-info btn-lg'>Comedy</button>");
-        var Action = $("<button id='Action' type='button' class='btn btn-outline-info btn-lg'>Action</button>");
-        drama.css({"position": "absolute", "bottom": b+"%", "left": l+"%"});
-        comedy.css({"position": "absolute", "top": t+"%", "left": r+"%"});
-        Action.css({"position": "absolute", "top": t2+"%", "left": r2+"%"});
-        $("#buttons").append(drama);
-        $("#buttons").append(comedy);
-        $("#buttons").append(Action);
+        });
+        $("#buttons").fadeOut();
+        $("#buttons").fadeIn(1000);
+        // var r = Math.floor((Math.random() * 30) + 10);
+        // var t = Math.floor((Math.random() * 30) + 20);
+        // var r2 = Math.floor((Math.random() * 30) + 10);
+        // var t2 = Math.floor((Math.random() * 30) + 50); 
+        // var l = Math.floor((Math.random() * 30) + 60);
+        // var b = Math.floor((Math.random() * 80) + 0);
 
-        $("#Action").fadeOut();
-        $("#drama").fadeOut();
-        $("#comedy").fadeOut();
-        $("#Action").fadeIn(1000);
-        $("#drama").fadeIn(1000);
-        $("#comedy").fadeIn(1000);
-    })
+        // var drama = $("<button id='drama' type='button' class='btn btn-outline-info btn-lg'> Drama </button>");
+        // var comedy = $("<button id='comedy' type='button' class='btn btn-outline-info btn-lg'>Comedy</button>");
+        // var Action = $("<button id='Action' type='button' class='btn btn-outline-info btn-lg'>Action</button>");
+        // drama.css({"position": "absolute", "bottom": b+"%", "left": l+"%"});
+        // comedy.css({"position": "absolute", "top": t+"%", "left": r+"%"});
+        // Action.css({"position": "absolute", "top": t2+"%", "left": r2+"%"});
+        // $("#buttons").append(drama);
+        // $("#buttons").append(comedy);
+        // $("#buttons").append(Action);
+
+        // $("#Action").fadeOut();
+        // $("#drama").fadeOut();
+        // $("#comedy").fadeOut();
+        // $("#Action").fadeIn(1000);
+        // $("#drama").fadeIn(1000);
+        // $("#comedy").fadeIn(1000);
+    });
 </script>
 
 {% endblock %}

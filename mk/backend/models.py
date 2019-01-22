@@ -19,6 +19,9 @@ class Movies(models.Model):
     plot = models.CharField(max_length=500)
     full_time = models.DurationField()
 
+    def __str__(self):
+        return '{}'.format(self.title)
+
 class Movies_Shot(models.Model):
     shot_id = models.CharField(max_length=10)
     title = models.CharField(max_length=100) 
@@ -28,4 +31,7 @@ class Movies_Shot(models.Model):
     end_time = models.DurationField()
     caption = models.CharField(max_length=250)
     movies = models.ForeignKey('Movies', on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return '{}:{}'.format(self.title, self.shot_id)
 

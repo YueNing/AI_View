@@ -9,6 +9,7 @@
 import os,sys
 import datetime
 import csv
+import json
 
 # 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('../mk')
@@ -52,9 +53,13 @@ class shots_analyse():
                 break
         return [start_time, end_time]
 
-    #TODO: analyse the file results caption S2VTAttModel.json
+    #*FUNC: analyse the file results caption S2VTAttModel.json
     def analyse_result_caption_json(self):
-        caption = 'caption shot'
+        caption = ''
+        caption_json = json.load(open(self.opt['results_path']+'/S2VTAttModel.json'))
+        for k, video in caption_json['predictions'].items():
+            if k == 'video'+ str(int(self.save_data['shot_id'])):
+                caption = video[0]['caption']
         return caption
     
     def save(self):

@@ -37,3 +37,6 @@ def action_space_plot_selection(request):
 
 def index_particle(request):
     return render_to_response('frontend/index_particle.html')
+
+def index_go(request):
+    return render_to_response('frontend/index_go.html')

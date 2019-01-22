@@ -8,7 +8,7 @@
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">	
 	<link rel="stylesheet" href="/static/css/dmaku.css">
-	
+	<link rel="stylesheet" type="text/css" href="/static/css/dmaku_3d.css" />	
 </head>
 
 <!--/************************************************************
@@ -20,9 +20,7 @@
  * 																*
 **************************************************************-->
 <body>
-	{% block content %}
-	<div></div>
-	{% endblock %}
+{% block content %}
 
 <!-- About modal Button and modal -->
 <button id='about_button' type="button" class="btn btn-outline-warning btn-lg" data-toggle="modal" data-target="#aboutModal">About</button>
@@ -56,12 +54,43 @@
 <canvas id="c"></canvas>
 
 <!-- Start button -->
-<button id='start_button' type="button" class="btn btn-outline-warning btn-lg">Start</button>
+<button id='start_button' type="button" class="btn btn-outline-warning btn-lg"  data-toggle="modal" data-target="#exampleModalLong">Start</button>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">System introduction</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h6>This is AI View System!</h6>
+				<p>This system are controlled both by voice and mouse keyboard</p>
+				<h6>voice command:</h6>
+					<ul>
+						<li><b>show information</b</li>
+						<li><b>start</b></li>
+						<li><b>drama</b></li>
+						<li><b>action</b></li>
+						<li><b>comedy</b></li>
+						<li><b>about</b></li>
+						<li>....</li>
+					</ul>
+				<p>develop by Kevin, Yue, Yang.</p>
+			</div>
+			<div class="modal-footer">
+				<button id="close" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<a type="button" class="btn btn-primary" href="/frontend/go">Go Now</a>
+			</div>
+		</div>
+	</div>
+</div>
 
 <!-- Introduction button -->
-<button id='introduction_button' type="button" class="btn btn-outline-light btn-lg">AI View, this is a project about the future film,you can see what you want to see</button>
+<button id='introduction_button' type="button" class="btn btn-outline-light btn-lg">AI View, this is a project about the futuer film,you can see what you want to see</button>
 
-
+{% endblock %}
 
 <script id="shader-fs" type="x-shader/x-fragment">
 				#ifdef GL_ES

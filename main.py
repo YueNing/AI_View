@@ -4,7 +4,7 @@
 # Submission:                      #
 # Instructor:                      #
 # Date created: 1/1/2019           #
-# Date last modified: 20/1/2019     #
+# Date last modified: 22/1/2019     #
 # Python Version: 3.5              #
 ####################################
 
@@ -21,12 +21,9 @@ import torch
 from torch import nn
 from eval import main as result_caption
 from pre_data import imdb_analyse,download_trailer,scenedetect,caption,shots_analyse
-# 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('./mk')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
-# 引入Django模块
 import django
-# 初始化Django环境
 django.setup()
 from backend.models import Movies, Movies_Shot
 # first need to get source-video and edit the videodatainfo.json 
@@ -95,9 +92,6 @@ def check_split(name):
         return True
 
 def main(opt_video_datainfo, opt_eval):
-	#print("split video to 5s video....")
-	#extract_frames_5s(opt_video_datainfo)
-	#print("split video finish")
     opt = {}
     opt['downloader'] = 'youtube-dl'
     opt['output_dir'] = 'data/source_videos/'
@@ -134,7 +128,6 @@ def main(opt_video_datainfo, opt_eval):
                 not_in_database = check_database(opt['name'])
                 not_in_database_movie_shots = check_database_for_shots(opt['name'])
                 not_split = check_split(opt['name'])
-                #not_split = False
                 not_extracted = check_extracted(opt_eval, opt)
                 not_get_caption = True
                 print("video:{} processed now.........".format(opt['name']))
@@ -185,7 +178,7 @@ def main(opt_video_datainfo, opt_eval):
                         print('already get the caption')
 
                                         
-                    #TODO: save information into database Movie_shot
+                    # * FUNC: save information into database Movie_shot
                     if not_in_database_movie_shots:
                         print("start analyse shots of video:{}".format(opt['name']))
                         shots_analyse.main(opt)
@@ -235,7 +228,6 @@ if __name__ == '__main__':
   args = parser.parse_args()
   os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
   args = vars((args))
-  #opt_video_datainfo = json.load(open(args["videodatainfo"]))
   opt_video_datainfo = {}
   opt_eval = json.load(open(args["recover_opt"]))
   args['generate_caption_model'] = opt_eval['model']

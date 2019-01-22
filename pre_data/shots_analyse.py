@@ -1,7 +1,7 @@
 ###############################
 # Author: Yue Ning
 # Datum: 21.01.2019
-# Last Change Datum: 21.01.2019
+# Date last modified: 22.01.2019
 # Location: Karlsruhe
 # File_Name: shots_analyse 
 # E-mail: n1085633848@gmail.com
@@ -11,13 +11,10 @@ import datetime
 import csv
 import json
 
-# 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('../mk')
 sys.path.append('./mk')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
-# 引入Django模块
 import django
-# 初始化Django环境
 django.setup()
 from backend.models import Movies, Movies_Shot
 
@@ -42,7 +39,7 @@ class shots_analyse():
         response = self.save()
         return response
 
-    #*FUNC: analyse the file video information get the start and end time
+    # * FUNC: analyse the file video information get the start and end time
     def analyse_split_video_csv(self):
         input_file =open(self.opt['shots_dir']+self.opt['name']+'/'+self.opt['name']+'-Scenes.csv')
         read = csv.reader(input_file)
@@ -53,7 +50,7 @@ class shots_analyse():
                 break
         return [start_time, end_time]
 
-    #*FUNC: analyse the file results caption S2VTAttModel.json
+    # * FUNC: analyse the file results caption S2VTAttModel.json
     def analyse_result_caption_json(self):
         caption = ''
         caption_json = json.load(open(self.opt['results_path']+'/S2VTAttModel.json'))

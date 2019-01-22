@@ -1,7 +1,7 @@
 ###############################
 # Author: Yue Ning
 # Datum: 16.01.2019
-# Last Change Datum: 16.01.2019
+# Last Change Datum: 22.01.2019
 # Location: KIT
 # File_Name: caption
 # E-mail: n1085633848@gmail.com
@@ -63,8 +63,6 @@ def extract_feats(args):
 
     model.last_linear = utils.Identity()
     model = nn.DataParallel(model)
-    # if params['saved_model'] != '':
-    #     model.load_state_dict(torch.load(params['saved_model']), strict=False)
     model = model.cuda()
     prepro_feats.extract_feats(params, model, load_image_fn)
 

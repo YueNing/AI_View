@@ -1,7 +1,7 @@
 ###############################
 # Author: Yue Ning
 # Datum: 10.01.2019
-# Last Change Datum: 16.01.2019
+# Date last modified:: 22.01.2019
 # Location: KIT
 # File_Name: main
 # E-mail: n1085633848@gmail.com
@@ -15,13 +15,10 @@ import scenedetect
 import caption
 from tqdm import tqdm
 
-# 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('../mk')
 sys.path.append('../coco-caption')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
-# 引入Django模块
 import django
-# 初始化Django环境
 django.setup()
 from backend.models import Movies, Movies_Shot
 
@@ -85,13 +82,7 @@ def main():
             opt['shots_video_stats'] = shots_video_stats
             opt['shots_videos'] = shots_videos
             opt['shots_video_scenens'] = shots_video_scenens
-            #message = caption.main(opt)
-            #opt = message['opt']
-            #response = message['response']
-            # import pdb
-            # pdb.set_trace()
             print(response)
-            #shot_analyse.main(opt)
         print('finish caption and analyse shots!')
 
         #----------------------------------------

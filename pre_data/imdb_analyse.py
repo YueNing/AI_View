@@ -1,7 +1,7 @@
 ###############################
 # Author: Yue Ning
 # Datum: 10.01.2019
-# Last Change Datum: 16.01.2019
+# Last Change Datum: 22.01.2019
 # Location: KIT
 # File_Name: imdb_analyse 
 # E-mail: n1085633848@gmail.com
@@ -13,13 +13,10 @@ from imdb import IMDb
 from tqdm import tqdm
 import subprocess
 
-# 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('../mk')
 sys.path.append('./mk')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
-# 引入Django模块
 import django
-# 初始化Django环境
 django.setup()
 from backend.models import Movies, Movies_Shot
 
@@ -55,7 +52,6 @@ class movie_analyse():
         def getLength(self):
                 if os.path.isfile(self.opt['output_dir']+'/'+self.opt['title_id']+'.mp4'):
                         input_video = self.opt['output_dir']+'/'+ self.opt['title_id'] + '.mp4'
-                        #input_video_path = os.path.abspath(input_video)
                         cmd = 'ffprobe -i {} -show_entries format=duration -v quiet -of csv="p=0"'.format(input_video)
                         output = subprocess.check_output(
                                 cmd,
@@ -90,17 +86,12 @@ def analyse_videos(opt):
 
 def get_genre(ia):
     top250 = ia.get_top250_movies()
-    # Iterate through the first 20 movies in the top 250
     for movie_count in range(0, 20):
-        # First, retrieve the movie object using its ID
         movie = ia.get_movie(top250[movie_count].movieID)
-        # Print movie title and genres
         print(movie['title'])
         print(*movie['genres'], sep=", ")
 
 def main(opt):
-        # import pdb
-        # pdb.set_trace()
         save_data = analyse_videos(opt)
         django_mysql_saver = Save(save_data)
         print(save_data)

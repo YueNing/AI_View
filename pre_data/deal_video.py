@@ -29,9 +29,6 @@ def extract_frames_5s(opt):
         print(video_to_frames_5s_command)
         subprocess.call(video_to_frames_5s_command, stdout=ffmpeg_log, stderr=ffmpeg_log)
       print("%s extracted finish"%(video['video_id']))
-          #subprocess.call(video_to_frames_command,
-           #               stdout=ffmpeg_log, stderr=ffmpeg_log)
-
 def read_file_to_list(path):
   files = os.listdir(path)
   return files

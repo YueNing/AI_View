@@ -29,6 +29,7 @@ class movie_analyse():
                 self._genres = self._movie['genres']
                 self._director = self._movie['director']
                 self._plot = self._movie['plot']
+                self._cover_url = self.opt['url']
                 self.full_time = self.getLength()
         @property
         def title(self):
@@ -48,6 +49,10 @@ class movie_analyse():
         @property
         def plot(self):
                 return self._plot[0]
+        @property
+        def cover_url(self):
+                return self._cover_url
+
         
         def getLength(self):
                 if os.path.isfile(self.opt['output_dir']+'/'+self.opt['title_id']+'.mp4'):
@@ -67,11 +72,13 @@ class Save():
                 self.response = self.process()
         def process(self):
                 if not Movies.objects.filter(title_id=self.data['movie_id']):
-                        movie = Movies(title=self.data['title'], genres=self.data['genres'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
+                        movie = Movies(title=self.data['title'], genres=self.data['genres'], cover_url=self.data['cover_url'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
                         movie.save()
                         return 'successful save the data: %s'%(self.data['movie_id'])
                 else:
-                        return 'can not save! exist'
+                        movie = Movies(id=Movies.objects.filter(title_id=self.data['movie_id'])[0].id, cover_url=self.data['cover_url'], title=self.data['title'], genres=self.data['genres'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
+                        movie.save()
+                        return 'exist update! {}'.format(self.data['movie_id'])
                 
 def analyse_videos(opt):
        movie = movie_analyse(opt)
@@ -82,6 +89,7 @@ def analyse_videos(opt):
        save_data['director'] =movie.director
        save_data['plot'] = movie.plot
        save_data['full_time'] = movie.full_time
+       save_data['cover_url'] = movie.cover_url
        return save_data
 
 def get_genre(ia):
@@ -94,7 +102,6 @@ def get_genre(ia):
 def main(opt):
         save_data = analyse_videos(opt)
         django_mysql_saver = Save(save_data)
-        print(save_data)
         print(django_mysql_saver.response)
 
 if __name__ == "__main__":

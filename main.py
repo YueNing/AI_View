@@ -73,10 +73,7 @@ def check_extracted(opt_eval, opt):
         return True
 
 def check_database(name):
-    if not Movies.objects.filter(title_id=name[2:]):
-        return True
-    else:
-        return False
+    return True
 
 def check_database_for_shots(name):
     return True

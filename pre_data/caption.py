@@ -35,10 +35,12 @@ from pretrainedmodels import utils
 '''
 def change_files_name(feats_dir):
     f_dir = feats_dir[0]
+    origin_title_name = f_dir.split('/')[-1]
     for filename in os.listdir(f_dir):
-        os.rename(os.path.join(f_dir,filename), os.path.join(f_dir, filename).replace('tt4131496-Scene-0','video'))
-    for filename in os.listdir(f_dir):
-        os.rename(os.path.join(f_dir,filename), os.path.join(f_dir, filename).replace('video0','video'))
+        if filename.startswith(origin_title_name):
+            origin_shot_id = filename.split('-')[-1].split('.')[0]
+            num_shot_id = str(int(origin_shot_id))
+            os.rename(os.path.join(f_dir,filename), os.path.join(f_dir, filename).replace(origin_title_name+'-Scene-'+origin_shot_id, 'video'+num_shot_id))
 
 def extract_feats(args):
     params = args
@@ -71,7 +73,7 @@ def get_command(opt):
     return command
 
 def get_caption(opt_eval):
-    change_files_name(opt_eval['feats_dir'])
+    change_files_name(opt_eval['feats_dir']) 
     opt_eval['model'] = opt_eval['generate_caption_model']
     result_caption(opt_eval)
 

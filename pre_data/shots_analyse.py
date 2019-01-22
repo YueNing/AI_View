@@ -74,7 +74,7 @@ class shots_analyse():
                                         movies=self.save_data['movies'], genre=self.save_data['movies'].genres)
                 shots_saver.save()
             else:
-                shots_saver = Movies_Shot(id=Movies_Shot.objects.filter(shot_id=self.save_data['shot_id'])[0].id, shot_id=self.save_data['shot_id'], title=self.save_data['title'],
+                shots_saver = Movies_Shot(id=Movies_Shot.objects.filter(shot_id=self.save_data['shot_id'], title=self.save_data['title'])[0].id, shot_id=self.save_data['shot_id'], title=self.save_data['title'],
                         video_url=self.save_data['video_url'], start_time=self.save_data['start_time'],
                         end_time=self.save_data['end_time'], caption=self.save_data['caption'], 
                         movies=self.save_data['movies'], genre=self.save_data['movies'].genres)

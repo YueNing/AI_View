@@ -67,7 +67,7 @@ class shots_analyse():
             [self.save_data['start_time'], self.save_data['end_time']] = self.analyse_split_video_csv()
             self.save_data['caption'] = self.analyse_result_caption_json()
             self.save_data['movies'] = Movies.objects.filter(title_id=self.opt['title_id'][2:])[0]
-            if not Movies_Shot.objects.filter(shot_id=self.save_data['shot_id']): 
+            if not Movies_Shot.objects.filter(shot_id=self.save_data['shot_id'], title=self.save_data['title']): 
                 shots_saver = Movies_Shot(shot_id=self.save_data['shot_id'], title=self.save_data['title'],
                                         video_url=self.save_data['video_url'], start_time=self.save_data['start_time'],
                                         end_time=self.save_data['end_time'], caption=self.save_data['caption'], 

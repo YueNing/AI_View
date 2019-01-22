@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta charset="UTF-8">
+	<title>HTML5 WebGL粒子爆炸背景动画</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">	
+	<link rel="stylesheet" href="/static/css/dmaku.css">
+	
+</head>
+
+<!--/************************************************************
+ *																*
+ * 						      AI VIEW							*
+ *                        @naodongbanana						*
+ *                        n1085633848@gmail.com					*
+ *       		  Medienkunst project interface					*
+ * 																*
+**************************************************************-->
+<body>
+	{% block content %}
+	<div></div>
+	{% endblock %}
+
+<!-- About modal Button and modal -->
+<button id='about_button' type="button" class="btn btn-outline-warning btn-lg" data-toggle="modal" data-target="#aboutModal">About</button>
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">About System</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<h5>Developer</h5>
+					<p>This project developed by</p>
+					<li><a href="https://github.com/datadrivennarratives">@Kevin Beckmann</a></li> 
+					<li><a href="https://github.com/yuening">@Yue Ning</a></li>
+					<li><a href="https://github.com/brankyy">@Yang Yang</a></li>
+				<hr>
+				<h5>About Links</h5>
+				<p><a href="/frontend" class="tooltip-test" title="Tooltip">Website</a> and <a href="https://github.com/datadrivennarratives/AI_View" class="tooltip-test" title="Tooltip">source code</a> are open source code MIT License.</p>
+			</div>
+			<div class="modal-footer">
+				<button id="close_about" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- particle backgrou -->
+<canvas id="c"></canvas>
+
+<!-- Start button -->
+<button id='start_button' type="button" class="btn btn-outline-warning btn-lg">Start</button>
+
+<!-- Introduction button -->
+<button id='introduction_button' type="button" class="btn btn-outline-light btn-lg">AI View, this is a project about the future film,you can see what you want to see</button>
+
+
+
+<script id="shader-fs" type="x-shader/x-fragment">
+				#ifdef GL_ES
+				  precision highp float;
+				  #endif
+    		void main(void) {
+    		 gl_FragColor = vec4(0.2, 0.3, 0.4, 1.0);
+    		}
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 vertexPosition;
+
+  	uniform mat4 modelViewMatrix;
+  	uniform mat4 perspectiveMatrix;
+
+   	void main(void) {
+  		gl_Position = perspectiveMatrix * modelViewMatrix * vec4(  vertexPosition, 1.0);
+  	}
+</script>
+  
+    <script src="/static/js/dmaku.js"></script>
+
+</body>
+</html>

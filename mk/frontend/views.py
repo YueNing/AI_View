@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, render_to_response
 def index(request):
-    return render_to_response('frontend/index.html')
+    return render_to_response('frontend/index+.html')
 
 def genre_selection(request):
     return render_to_response('frontend/genre_selection.html')
@@ -34,3 +34,6 @@ def action_war_plot_selection(request):
 def action_space_plot_selection(request):
     return render_to_response('frontend/action_space_plot_selection.html')
 
+
+def index_particle(request):
+    return render_to_response('frontend/index_particle.html')

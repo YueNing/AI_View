@@ -5,7 +5,8 @@ app_name = 'frontend'
 urlpatterns = [
     # ex: /mysample/
     #url(r'^$', views.index, name='index'),
-    path('', views.index, name='index'),
+    # path('', views.index, name='index'),
+    path('', views.index_particle, name='index_particle'),
     path('genre_selection',views.genre_selection, name='genre_selection'),
     path('action_theme_selection',views.action_theme_selection, name='action_theme_selection'),
     path('comedy_theme_selection',views.comedy_theme_selection, name='comedy_theme_selection'),

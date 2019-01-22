@@ -61,7 +61,7 @@ class shots_analyse():
         for shot in self.shots_videos:
             self.save_data['shot_id'] =  shot.split('-')[2][:-4]
             self.save_data['title'] = self.opt['name']
-            self.save_data['video_url'] = self.opt['url']
+            self.save_data['video_url'] = self.opt['shots_dir']+self.opt['name']+'/'+ shot
             [self.save_data['start_time'], self.save_data['end_time']] = self.analyse_split_video_csv()
             self.save_data['caption'] = self.analyse_result_caption_json()
             self.save_data['movies'] = Movies.objects.filter(title_id=self.opt['title_id'][2:])[0]

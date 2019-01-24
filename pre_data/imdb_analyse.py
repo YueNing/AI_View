@@ -72,11 +72,11 @@ class Save():
                 self.response = self.process()
         def process(self):
                 if not Movies.objects.filter(title_id=self.data['movie_id']):
-                        movie = Movies(title=self.data['title'], genres=self.data['genres'], cover_url=self.data['cover_url'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
+                        movie = Movies(title=self.data['title'], themes='default', genres=self.data['genres'], cover_url=self.data['cover_url'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
                         movie.save()
                         return 'successful save the data: %s'%(self.data['movie_id'])
                 else:
-                        movie = Movies(id=Movies.objects.filter(title_id=self.data['movie_id'])[0].id, cover_url=self.data['cover_url'], title=self.data['title'], genres=self.data['genres'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
+                        movie = Movies(id=Movies.objects.filter(title_id=self.data['movie_id'])[0].id, themes='default', cover_url=self.data['cover_url'], title=self.data['title'], genres=self.data['genres'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
                         movie.save()
                         return 'exist update! {}'.format(self.data['movie_id'])
                 

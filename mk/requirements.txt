@@ -4,3 +4,4 @@ django
 pymysql
 scenedetect
 moviepy
+requests

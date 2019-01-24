@@ -37,6 +37,15 @@ def main(opt):
   files = read_file_to_list(opt["video_input_path"])
   extract_frames_5s(opt)
  
+def add_keyframe(opt):
+  command = ['ffmpeg', '-i', opt['input_video'], '-g', '1', '-keyint_min', '1', opt['keyframe_video_dir']+opt['name']+'.mp4']
+  output = subprocess.check_output(
+                                  command,
+                                  shell=True, # Let this run in the shell
+                                  stderr=subprocess.STDOUT
+                          )
+  response = 'set task to add key frame'
+  return response
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()

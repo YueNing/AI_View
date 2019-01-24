@@ -26,7 +26,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
 import django
 django.setup()
 from backend.models import Movies, Movies_Shot
+
 my_path = os.path.abspath(os.path.dirname(__file__))
+DEBUG = False
 # first need to get source-video and edit the videodatainfo.json 
 # run the under command get the test video
 # python deal_video.py --video_input_path data/source-video/ --video_output_path data/test-video/  --videodatainfo videodatainfo.json
@@ -100,8 +102,14 @@ def check_keyframe_video(opt):
         os.makedirs(k_dir)
         return False
 
-def check_finished(opt):
-    return True
+def check_finished(urls):
+    if not DEBUG:
+        for url in urls:
+            tt = url.split('/')[4]
+            if not (Movies.objects.filter(title_id=tt[2:]) and Movies_Shot.objects.filter(title=tt)):
+                return False
+        return True
+    return False
 
 def check_split(name):
     check_dir = 'my_video_scenes_tmp/'+name
@@ -118,10 +126,10 @@ def main(opt_video_datainfo, opt_eval):
     opt['downloader'] = 'youtube-dl'
     opt['output_dir'] = 'data/source_videos/'
     with open('pre_data/videos_url') as f:
-        print('INFO:download now the videos.....')
+        print('INFO:Runing now the AI system.....')
         urls = f.readlines()
-        finshed = False
-        while not finshed:
+        # finshed = False
+        while not check_finished(urls):
             for url in urls:
                 opt['url'] = url.strip()
                 opt['name'] = opt['url'].split('/')[4]

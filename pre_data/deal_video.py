@@ -1,3 +1,11 @@
+###############################
+# Author: Yue Ning
+# Datum: 1.01.2019
+# Date last modified: 24.01.2019
+# Location: Karlsruhe
+# File_Name: deal_video 
+# E-mail: n1085633848@gmail.com
+###############################
 import json
 import os
 import argparse

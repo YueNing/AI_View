@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render
+from django.http import HttpResponse
 
 # Create your views here.
 from django.shortcuts import render, render_to_response
@@ -50,3 +51,17 @@ def index_go(request):
                 show_genres.append(value)
     context = json.dumps({'genres':show_genres})
     return render(request, 'frontend/index_go.html',{"context":context})
+
+def genres_selected(request):
+    show_themes = ['space', 'war', 'hhhh']
+    # show_themes = Movies.objects.filter(genres=request.GET['genre']).values_list('themes')
+    context = json.dumps({'themes':show_themes, 'genre':request.GET['genre'], 'msg':'true'})
+    return HttpResponse(context, content_type='application/json')
+
+def themes_selected(request):
+    show_plots = []
+    movies_shots_captions = Movies_Shot.objects.filter(movies__genres=request.GET['genre']).values_list('caption').distinct()
+    for caption in movies_shots_captions[0:20]:
+        show_plots.append(caption[0])
+    context = json.dumps({'msg':'finish', 'plots':show_plots})
+    return HttpResponse(context, content_type='application/json')

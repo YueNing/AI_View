@@ -77,7 +77,7 @@
 <div id='buttons'></div>
 
 <!-- <button id='drama' type="button" class="btn btn-outline-info btn-lg">Drama</button> -->
-<button id='introduction_button' type="button" class="btn btn-danger btn-lg">Select a genre</button>
+<button id='introduction_button' type="button" class="btn btn-danger btn-lg"><span>Select a genre</span></button>
 
 <script type="text/javascript">
     $(document).ready(function (){
@@ -108,23 +108,81 @@
                 $.ajax({
                     url: "/frontend/genres",
                     data:{'genre':item},
-                    type:'post',
+                    type:'get',
                     cache:false,
                     dataType:'json',
                     success:function(data){
-                        if(data.msg == 'true'){
-                            alert('success');
-                            // window.location.reload();
+                        // alert(data['themes']);
+                        if(data['themes']){
+                            // var themes = data['themes'];
+                            $('#introduction_button span').text('Select a theme');
+                            $('#buttons').empty();
+                            $.each(data['themes'], function(index, value){
+                                if(index%2==0){
+                                    var r = Math.floor((Math.random() * 30) + 60);
+                                    var t = Math.floor((Math.random() * 20) + 25*(index+1)%80);
+                                    var item_var = $("<button id="+value+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
+                                    item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
+                                    $("#buttons").append(item_var);
+                                }
+                                else{
+                                    var l = Math.floor((Math.random() * 30) + 60);
+                                    var t = Math.floor((Math.random() * 20) + 20*(index+1)%80);
+                                    var item_var = $("<button id="+value+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
+                                    item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
+                                    $("#buttons").append(item_var);
+                                };
+                            })
+                            var IDs = [];
+                            $('#buttons').find('button').each(function(){IDs.push(this.id);})
+                            $.each(IDs, function(index, value){
+                                $('#'+value).click(function(){
+                                // alert(value);
+                                $.ajax({
+                                        url:'/frontend/themes',
+                                        data:{'theme':value, 'genre':data['genre']},
+                                        type:'get',
+                                        cache:false,
+                                        dataType:'json',
+                                        success:function(data){
+                                            if(data['plots']){
+                                                $('#introduction_button span').text('Select a plot');
+                                                $('#buttons').empty();
+                                                $.each(data['plots'], function(index, value){
+                                                    if(index%2==0){
+                                                        var r = Math.floor((Math.random() * 30) + 60);
+                                                        var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
+                                                        var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
+                                                        item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
+                                                        $("#buttons").append(item_var);
+                                                    }
+                                                    else{
+                                                        var l = Math.floor((Math.random() * 30) + 60);
+                                                        var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
+                                                        var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
+                                                        item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
+                                                        $("#buttons").append(item_var);
+                                                    };
+                                                })
+                                            }
+                                        },
+                                        error:function(){
+                                            alert('error');
+                                        }
+                                    })
+                                })
+                            })
                         }else{
-                            view(data.msg);
+                            alert('restart!');
                         }
                     },
-                    error:function(){
-                        alert('error!');
+                    error:function(jqXHR, textStatus, err){
+                        alert('error');
                     }
                 });
             });
         });
+ 
         // var r = Math.floor((Math.random() * 30) + 10);
         // var t = Math.floor((Math.random() * 30) + 20);
         // var r2 = Math.floor((Math.random() * 30) + 10);

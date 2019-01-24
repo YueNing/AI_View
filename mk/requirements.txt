@@ -3,3 +3,4 @@ jet-dashboard
 django
 pymysql
 scenedetect
+moviepy

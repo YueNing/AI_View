@@ -53,8 +53,11 @@ def index_go(request):
     return render(request, 'frontend/index_go.html',{"context":context})
 
 def genres_selected(request):
-    show_themes = ['space', 'war', 'hhhh']
-    # show_themes = Movies.objects.filter(genres=request.GET['genre']).values_list('themes')
+    # show_themes = ['space', 'war', 'hhhh']
+    show_themes = []
+    show_themes_database = Movies.objects.filter(genres=request.GET['genre']).values_list('themes')
+    for theme in show_themes_database:
+        show_themes.append(theme[0])
     context = json.dumps({'themes':show_themes, 'genre':request.GET['genre'], 'msg':'true'})
     return HttpResponse(context, content_type='application/json')
 

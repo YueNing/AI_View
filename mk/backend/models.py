@@ -14,6 +14,7 @@ class Movies(models.Model):
     title = models.CharField(max_length=100)
     title_id = models.CharField(max_length=10)
     genres = models.CharField(max_length=30)
+    themes = models.CharField(max_length=30)
     director = models.CharField(max_length=30)
     cover_url = models.URLField(max_length=200)
     plot = models.CharField(max_length=500)

@@ -76,10 +76,17 @@ def themes_selected(request):
 
 def plots_selected(request):
     selected_plots_id = []
+    show_plots = []
+    show_plots_id = []
+    genre = request.GET['genre']
     time = 5
     selected_plots_id = request.GET['selected_id']
-    show_plots_id = ['780', '790']
-    show_plots = ['test1','test2']
+    movies_shots = Movies_Shot.objects.filter(movies__genres=genre).values_list('caption', 'id').distinct()
+    for caption in movies_shots[20:40]:
+        show_plots.append(caption[0])
+        show_plots_id.append(caption[1])
+    # show_plots_id = ['780', '790']
+    # show_plots = ['test1','test2']
     context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
     # import pdb
     # pdb.set_trace()
@@ -87,11 +94,18 @@ def plots_selected(request):
 
 def plots_selected_1(request):
     selected_plots_id = []
+    show_plots = []
+    show_plots_id = []
+    genre = request.GET['genre']
     time = 5
     selected_plots_id = request.GET['selected_id']
+    movies_shots = Movies_Shot.objects.filter(movies__genres=genre).values_list('caption', 'id').distinct()
+    for caption in movies_shots[20:40]:
+        show_plots.append(caption[0])
+        show_plots_id.append(caption[1])
     old_id = request.GET['old_id']
-    show_plots_id = ['780', '790']
-    show_plots = ['test1','test2']
+    # show_plots_id = ['780', '790']
+    # show_plots = ['test1','test2']
     context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':[selected_plots_id,old_id], 'time':time})
     # import pdb
     # pdb.set_trace()
@@ -101,30 +115,41 @@ def plots_selected_2(request):
     selected_plots_id = []
     time = 5
     selected_plots_id = request.GET['selected_id']
+    old_id_1 = request.GET['old_id_1']
+    old_id_2 = request.GET['old_id_2']
     show_plots_id = ['780', '790']
     show_plots = ['test1','test2']
-    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
-    # import pdb
-    # pdb.set_trace()
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'],
+                                 'selected_plots_id':[selected_plots_id,old_id_1,old_id_2], 'time':time})
     return HttpResponse(context, content_type='application/json')
 
 def plots_selected_3(request):
     selected_plots_id = []
     time = 5
     selected_plots_id = request.GET['selected_id']
+    old_id_1 = request.GET['old_id_1']
+    old_id_2 = request.GET['old_id_2']
+    old_id_3 = request.GET['old_id_3']
     show_plots_id = ['780', '790']
     show_plots = ['test1','test2']
-    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'],
+                         'selected_plots_id':[selected_plots_id,old_id_1, old_id_2,old_id_3], 'time':time})
     # import pdb
     # pdb.set_trace()
     return HttpResponse(context, content_type='application/json')
+
 def plots_selected_4(request):
     selected_plots_id = []
     time = 5
     selected_plots_id = request.GET['selected_id']
+    old_id_1 = request.GET['old_id_1']
+    old_id_2 = request.GET['old_id_2']
+    old_id_3 = request.GET['old_id_3']
+    old_id_4 = request.GET['old_id_4']
     show_plots_id = ['780', '790']
     show_plots = ['test1','test2']
-    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 
+                            'selected_plots_id':[selected_plots_id,old_id_1, old_id_2, old_id_3, old_id_4], 'time':time})
     # import pdb
     # pdb.set_trace()
     return HttpResponse(context, content_type='application/json')
@@ -133,14 +158,22 @@ def plots_selected_5(request):
     selected_plots_id = []
     time = 5
     selected_plots_id = request.GET['selected_id']
+    old_id_1 = request.GET['old_id_1']
+    old_id_2 = request.GET['old_id_2']
+    old_id_3 = request.GET['old_id_3']
+    old_id_4 = request.GET['old_id_4']
+    old_id_5 = request.GET['old_id_5']
     show_plots_id = ['780', '790']
     show_plots = ['test1','test2']
-    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'],
+                         'selected_plots_id':[selected_plots_id, old_id_1, old_id_2, old_id_3, old_id_4, old_id_5], 'time':time})
     # import pdb
     # pdb.set_trace()
     return HttpResponse(context, content_type='application/json')
 
 def render_for_ai(request):
-    render_url = ''
+    render_url = '../../../../data/key_source_videos/tt1477834.mp4'
+    import pdb
+    pdb.set_trace()
     context = json.dumps({'msg':'finish', 'render_url':render_url})
     return HttpResponse(context, content_type='application/json')

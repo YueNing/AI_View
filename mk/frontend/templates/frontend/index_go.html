@@ -81,26 +81,62 @@
 
 <script type="text/javascript">
     $(document).ready(function (){
-        var data = {{ context|safe }};
-        $.each(data['genres'], function(index, item){
-            console.log(index);
-            console.log(item);
-            if(index%2==0){
-                var r = Math.floor((Math.random() * 30) + 60);
-                var t = Math.floor((Math.random() * 20) + 25*(index+1)%80);
-                var item_var = $("<button id="+item+" type='button' class='btn btn-outline-info btn-lg'>"+item+"</button>");
-                item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
-                $("#buttons").append(item_var);
-            }
-            else{
-                var l = Math.floor((Math.random() * 30) + 60);
-                var t = Math.floor((Math.random() * 20) + 20*(index+1)%80);
-                var item_var = $("<button id="+item+" type='button' class='btn btn-outline-info btn-lg'>"+item+"</button>");
-                item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
-                $("#buttons").append(item_var);
-            };
+        function render_ai(ids){
+            // TODO
+            $('#introduction_button span').text('Show Video');
+            $('#buttons').empty();
+            $.ajax({
+                url:'/frontend/render',
+                data:{'plots_id':ids},
+                type:'get',
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    var render_video_url = data['render_url'];
+                    var vid = $("<video controls playsinline ><source src="+render_url+"type=\"video/mp4\" size=\"576\"></video>");
+                    $("#buttons").append(vid); 
+                    const player = new Plyr('video', {captions: {active: true}});
+                    window.player = player;
+                    window.player.play();
+                    // alert('hello');
+                },
+                error:function(){
+                    console.log('error can not get the video url');
+                }
+            })
+        };
 
-        });
+        function empty_and_create(datas, type){
+            $('#introduction_button span').text('Select a '+type);
+            $('#buttons').empty();
+            $.each(datas, function(index, value){
+                if(index%2==0){
+                    var r = Math.floor((Math.random() * 30) + 60);
+                    var t = Math.floor((Math.random() * 20) + 25*(index+1)%80);
+                    if(type=='genre' || type=='theme'){
+                        var item_var = $("<button id="+value+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
+                    }else{
+                        var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
+                    }
+                    item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
+                    $("#buttons").append(item_var);
+                }
+                else{
+                    var l = Math.floor((Math.random() * 30) + 60);
+                    var t = Math.floor((Math.random() * 20) + 20*(index+1)%80);
+                    if(type == 'genre' || type=='theme'){
+                        var item_var = $("<button id="+value+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
+                    }else{
+                        var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
+                    }
+                    item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
+                    $("#buttons").append(item_var);
+                };
+            })
+        };
+
+        var data = {{ context|safe }};
+        empty_and_create(data['genres'], 'genre');
         $("#buttons").fadeOut(500);
         $("#buttons").fadeIn(1000);
         $.each(data['genres'], function(index, item){
@@ -115,24 +151,7 @@
                         // alert(data['themes']);
                         if(data['themes']){
                             // var themes = data['themes'];
-                            $('#introduction_button span').text('Select a theme');
-                            $('#buttons').empty();
-                            $.each(data['themes'], function(index, value){
-                                if(index%2==0){
-                                    var r = Math.floor((Math.random() * 30) + 60);
-                                    var t = Math.floor((Math.random() * 20) + 25*(index+1)%80);
-                                    var item_var = $("<button id="+value+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
-                                    item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
-                                    $("#buttons").append(item_var);
-                                }
-                                else{
-                                    var l = Math.floor((Math.random() * 30) + 60);
-                                    var t = Math.floor((Math.random() * 20) + 20*(index+1)%80);
-                                    var item_var = $("<button id="+value+" type='button' class='btn btn-outline-info btn-lg'>"+value+"</button>");
-                                    item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
-                                    $("#buttons").append(item_var);
-                                };
-                            })
+                            empty_and_create(data['themes'], 'theme');
                             var IDs = [];
                             $('#buttons').find('button').each(function(){IDs.push(this.id);})
                             $.each(IDs, function(index, value){
@@ -146,24 +165,7 @@
                                         dataType:'json',
                                         success:function(data){
                                             if(data['plots']){
-                                                $('#introduction_button span').text('Select a plot');
-                                                $('#buttons').empty();
-                                                $.each(data['plots'], function(index, value){
-                                                    if(index%2==0){
-                                                        var r = Math.floor((Math.random() * 30) + 60);
-                                                        var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
-                                                        var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
-                                                        item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
-                                                        $("#buttons").append(item_var);
-                                                    }
-                                                    else{
-                                                        var l = Math.floor((Math.random() * 30) + 60);
-                                                        var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
-                                                        var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
-                                                        item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
-                                                        $("#buttons").append(item_var);
-                                                    };
-                                                })
+                                                empty_and_create(data['plots'], 'plot');
                                                 var IDs_plot = [];
                                                 $('#buttons').find('button').each(function(){IDs_plot.push(this.id);})
                                                 $.each(IDs_plot, function(index, value){
@@ -184,81 +186,131 @@
                                                                 var max_selected_times =5;
                                                                 var selected_times = 0;
                                                                 // alert(time);
-                                                                $('#introduction_button span').text('Select a plot');
-                                                                $('#buttons').empty();
                                                                 // alert(time);
-                                                                $.each(data['plots'], function(index, value){
-                                                                            if(index%2==0){
-                                                                                var r = Math.floor((Math.random() * 30) + 60);
-                                                                                var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
-                                                                                var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
-                                                                                item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
-                                                                                $("#buttons").append(item_var);
-                                                                            }
-                                                                            else{
-                                                                                var l = Math.floor((Math.random() * 30) + 60);
-                                                                                var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
-                                                                                var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
-                                                                                item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
-                                                                                $("#buttons").append(item_var);
-                                                                            };
-                                                                })
-                                                                IDs_new_plot = []
-                                                                $('#buttons').find('button').each(function(){IDs_new_plot.push(this.id);})
-                                                                // alert(IDs_new_plot);
-                                                                $.each(IDs_plot, function(index, value){
-                                                                    $('#'+value).click(function(){
-                                                                        // alert(value);
-                                                                        $.ajax({
-                                                                            url:'/frontend/plots_1',
-                                                                            data:{'selected_id':data['plots_id'][index],'old_id':data['selected_plots_id'], 'genre':data['genre'],'plot':value},
-                                                                            type:'get',
-                                                                            cache:false,
-                                                                            dataType:'json',
-                                                                            success:function(data){
-                                                                                alert(data['selected_plots_id']);
-                                                                                alert(data['time']);
-                                                                //                 end_plots_id = data['selected_plots_id']
-                                                                //                 time = data['time'];
-                                                                //                 $('#introduction_button span').text('Select a plot');
-                                                                //                 $('#buttons').empty();
-                                                                //                 $.each(data['plots'], function(index, value){
-                                                                //                     if(index%2==0){
-                                                                //                         var r = Math.floor((Math.random() * 30) + 60);
-                                                                //                         var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
-                                                                //                         var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
-                                                                //                         item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
-                                                                //                         $("#buttons").append(item_var);
-                                                                //                     }
-                                                                //                     else{
-                                                                //                         var l = Math.floor((Math.random() * 30) + 60);
-                                                                //                         var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
-                                                                //                         var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
-                                                                //                         item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
-                                                                //                         $("#buttons").append(item_var);
-                                                                //                     };
-                                                                //                 })
+                                                                if(time < 20){
+                                                                    empty_and_create(data['plots'], 'plot');
+                                                                    IDs_new_plot = []
+                                                                    $('#buttons').find('button').each(function(){IDs_new_plot.push(this.id);})
+                                                                    // alert(IDs_new_plot);
+                                                                    $.each(IDs_plot, function(index, value){
+                                                                        $('#'+value).click(function(){
+                                                                            // alert(value);
+                                                                            $.ajax({
+                                                                                url:'/frontend/plots_1',
+                                                                                data:{'selected_id':data['plots_id'][index],'old_id':data['selected_plots_id'], 'genre':data['genre'],'plot':value},
+                                                                                type:'get',
+                                                                                cache:false,
+                                                                                dataType:'json',
+                                                                                success:function(data){
+                                                                                    alert(data['selected_plots_id']);
+                                                                                    // alert(data['time']);
+                                                                    //                 end_plots_id = data['selected_plots_id']
+                                                                    //                 time = data['time'];
+                                                                                    if(data['time'] < 20){
+                                                                                        empty_and_create(data['plots'], 'plot');
+                                                                                        IDs_new_plot = []
+                                                                                        $('#buttons').find('button').each(function(){IDs_new_plot.push(this.id);})
+                                                                                        $.each(IDs_plot, function(index, value){
+                                                                                            $('#'+value).click(function(){
+                                                                                                $.ajax({
+                                                                                                    url:'/frontend/plots_2',
+                                                                                                    data:{'selected_id':data['plots_id'][index],'old_id_1':data['selected_plots_id'][0],'old_id_2':data['selected_plots_id'][1], 'genre':data['genre'],'plot':value},
+                                                                                                    type:'get',
+                                                                                                    cache:false,
+                                                                                                    dataType:'json',
+                                                                                                    success:function(data){
+                                                                                                        alert(data['selected_plots_id']);
+                                                                                                        if(data['time'] < 20){
+                                                                                                            empty_and_create(data['plots'], 'plot');
+                                                                                                            IDs_new_plot = []
+                                                                                                            $('#buttons').find('button').each(function(){IDs_new_plot.push(this.id);})
+                                                                                                            $.each(IDs_plot, function(index, value){
+                                                                                                                $('#'+value).click(function(){
+                                                                                                                    // alert(value);
+                                                                                                                    $.ajax({
+                                                                                                                        url:'/frontend/plots_3',
+                                                                                                                        data:{'selected_id':data['plots_id'][index], 'old_id_1':data['selected_plots_id'][0], 'old_id_2':data['selected_plots_id'][1], 'old_id_3':data['selected_plots_id'][2], 'genre':data['genre'], 'plot':value},
+                                                                                                                        type:'get',
+                                                                                                                        cache:false,
+                                                                                                                        dataType:'json',
+                                                                                                                        success:function(data){
+                                                                                                                            alert(data['selected_plots_id'])
+                                                                                                                            if(data['time'] < 20){
+                                                                                                                                // alert('time');
+                                                                                                                                empty_and_create(data['plots'], 'plot');
+                                                                                                                                IDs_new_plot = []
+                                                                                                                                $('#buttons').find('button').each(function(){IDs_new_plot.push(this.id);})
+                                                                                                                                $.each(IDs_plot, function(index, value){
+                                                                                                                                    $('#'+value).click(function(){
+                                                                                                                                        $.ajax({
+                                                                                                                                            url:'/frontend/plots_4',
+                                                                                                                                            data:{'selected_id':data['plots_id'][index], 'old_id_1':data['selected_plots_id'][0], 'old_id_2':data['selected_plots_id'][1], 'old_id_3':data['selected_plots_id'][2],'old_id_4':data['selected_plots_id'][3], 'genre':data['genre'], 'plot':value},
+                                                                                                                                            type:'get',
+                                                                                                                                            cache:false,
+                                                                                                                                            dataType:'json',
+                                                                                                                                            success:function(data){
+                                                                                                                                                alert(data['selected_plots_id'])
+                                                                                                                                                if(data['time'] < 20){
+                                                                                                                                                    empty_and_create(data['plots'], 'plot');
+                                                                                                                                                    IDs_new_plot = []
+                                                                                                                                                    $('#buttons').find('button').each(function(){IDs_new_plot.push(this.id);})
+                                                                                                                                                    $.each(IDs_plot, function(index, value){
+                                                                                                                                                        $.ajax({
+                                                                                                                                                            url:'/frontend/plots_5',
+                                                                                                                                                            data:{'selected_id':data['plots_id'][index], 'old_id_1':data['selected_plots_id'][0], 'old_id_2':data['selected_plots_id'][1], 'old_id_3':data['selected_plots_id'][2],'old_id_4':data['selected_plots_id'][3], 'old_id_5':data['selected_plots_id'][4], 'genre':data['genre'], 'plot':value},
+                                                                                                                                                            type:'get',
+                                                                                                                                                            cache:false,
+                                                                                                                                                            dataType:'json',
+                                                                                                                                                            success:function(data){
+                                                                                                                                                                console.log('finish');
+                                                                                                                                                                render_ai(data['selected_plots_id']);
+                                                                                                                                                            },
+                                                                                                                                                            error:function(){
+                                                                                                                                                                console.log('error send plot 5');
+                                                                                                                                                            }
+                                                                                                                                                        })
+                                                                                                                                                    })
+                                                                                                                                                }else{
+                                                                                                                                                    render_ai(data['selected_plots_id']);
+                                                                                                                                                }
 
-                                                                            },
-                                                                            error:function(){console.log('error')}
+                                                                                                                                            },
+                                                                                                                                            error:function(){console.log('error send plot 4')}
+                                                                                                                                        })
+                                                                                                                                    })
+                                                                                                                                })
+                                                                                                                            }else{
+                                                                                                                                render_ai(data['selected_plots_id'])
+                                                                                                                            }
+                                                                                                                        },
+                                                                                                                        error:function(){console.log('error send plot 3')}
+                                                                                                                    })
+
+                                                                                                                })
+                                                                                                            })
+
+                                                                                                        }else{
+                                                                                                            // TODO
+                                                                                                            render_ai(data['selected_plots_id']);
+                                                                                                        }
+                                                                                                    },
+                                                                                                    error:function(){console.log('error plot 2 send')}
+                                                                                                })
+                                                                                            })
+                                                                                        })
+                                                                                    }else{
+                                                                                        // TODO
+                                                                                        render_ai(data['selected_plots_id']);
+                                                                                    }
+                                                                                },
+                                                                                error:function(){console.log('error plot 1 send!')}
+                                                                            })
                                                                         })
                                                                     })
-                                                                })
-                                                                // TODO
-                                                                $.ajax({
-                                                                    url:'/frontend/render',
-                                                                    data:{'plots_id':end_plots_id},
-                                                                    type:'get',
-                                                                    cache:false,
-                                                                    dataType:'json',
-                                                                    success:function(data){
-                                                                        var render_video_url = data['render_url'];
-                                                                        // alert('hello');
-                                                                    },
-                                                                    error:function(){
-                                                                        console.log('error can not get the video url');
-                                                                    }
-                                                                })
+                                                                }else{
+                                                                    // TODO
+                                                                    render_ai(data['selected_plots_id']);
+                                                                }
                                                             },
                                                             error:function(){
                                                                 console.log('error plot send');
@@ -284,30 +336,6 @@
                 });
             });
         });
- 
-        // var r = Math.floor((Math.random() * 30) + 10);
-        // var t = Math.floor((Math.random() * 30) + 20);
-        // var r2 = Math.floor((Math.random() * 30) + 10);
-        // var t2 = Math.floor((Math.random() * 30) + 50); 
-        // var l = Math.floor((Math.random() * 30) + 60);
-        // var b = Math.floor((Math.random() * 80) + 0);
-
-        // var drama = $("<button id='drama' type='button' class='btn btn-outline-info btn-lg'> Drama </button>");
-        // var comedy = $("<button id='comedy' type='button' class='btn btn-outline-info btn-lg'>Comedy</button>");
-        // var Action = $("<button id='Action' type='button' class='btn btn-outline-info btn-lg'>Action</button>");
-        // drama.css({"position": "absolute", "bottom": b+"%", "left": l+"%"});
-        // comedy.css({"position": "absolute", "top": t+"%", "left": r+"%"});
-        // Action.css({"position": "absolute", "top": t2+"%", "left": r2+"%"});
-        // $("#buttons").append(drama);
-        // $("#buttons").append(comedy);
-        // $("#buttons").append(Action);
-
-        // $("#Action").fadeOut();
-        // $("#drama").fadeOut();
-        // $("#comedy").fadeOut();
-        // $("#Action").fadeIn(1000);
-        // $("#drama").fadeIn(1000);
-        // $("#comedy").fadeIn(1000);
     });
 </script>
 

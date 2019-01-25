@@ -6,9 +6,9 @@ my_path = os.path.abspath(os.path.dirname(__file__))
 def main(opt):
     """ return the url of concatenate video
     >>> main(opt={"output_dir":"my_video_scenes_tmp/","movie_shots":['my_video_scenes_tmp/test1.mp4', 'my_video_scenes_tmp/test2.mp4','my_video_scenes_tmp/test3.mp4','my_video_scenes_tmp/test4.mp4'],'user_id':'1'})
-    'c:/Users/n1085/Documents/GitHub/AI_View/my_video_scenes_tmp/show_video_1.mp4' 
+    'show_video_1.mp4' 
     """
-    opt['output_dir'] = os.path.join(my_path, '../../'+opt['output_dir'])
+    opt['output_dir'] = os.path.join(my_path, '../'+opt['output_dir'])
     for index, m in enumerate(opt['movie_shots']):
         opt['movie_shots'][index] = os.path.join(my_path, '../../'+m)
     clips = []
@@ -16,8 +16,9 @@ def main(opt):
         clips.append(VideoFileClip(clip))
     final_clip = concatenate_videoclips(clips)
     write_url = os.path.join(my_path, opt['output_dir']+"show_video_{}.mp4".format(opt['user_id']))
+    show_url = "show_video_{}.mp4".format(opt['user_id'])
     msg = final_clip.write_videofile(write_url)
-    return write_url
+    return show_url
 
 if __name__ =='__main__':
     #opt={"output_dir":os.path.join(my_path, "../../my_videos_tmp/"),"movie_shots":[os.path.join(my_path, '../../my_videos_tmp/test1.mp4')],'user_id':'1'}

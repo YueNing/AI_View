@@ -155,7 +155,7 @@ def main(opt_video_datainfo, opt_eval):
                     opt_eval['feats_dir'] = ['data/feats/resnet152/'+opt['name']]
                     opt_eval['results_path'] = 'results/'+opt['name']
                     opt['results_path'] = opt_eval['results_path']
-                    opt['shots_dir'] = os.path.join(my_path, 'my_video_scenes_tmp/')
+                    opt['shots_dir'] = 'my_video_scenes_tmp/'
                     opt['keyframe_video_dir'] = os.path.join(my_path, 'data/key_source_videos/')
                     exist_video_vor = check_video_vor(opt)
                     exist_video = check_video(opt)

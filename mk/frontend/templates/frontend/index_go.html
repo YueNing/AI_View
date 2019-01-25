@@ -119,14 +119,16 @@ $('.launch-modal').on('click', function(e){
             // TODO
             $('#introduction_button span').text('Show Video');
             $('#buttons').empty();
+            var d = JSON.stringify(ids)
+            alert(d);
             $.ajax({
                 url:'/frontend/render',
-                data:{'plots_id':ids},
+                data:{'plots_id':d},
                 type:'get',
                 cache:false,
                 dataType:'json',
                 success:function(data){
-                    $("#show_ai_video").attr("src", "{% static 'tt1477834.mp4' %}")
+                    $("#show_ai_video").attr("src", "{% static "+ data['render_url']+ " %}")
                     $(".launch-modal").click();
                 },
                 error:function(){

@@ -81,7 +81,7 @@ def plots_selected(request):
     genre = request.GET['genre']
     time = 5
     selected_plots_id = request.GET['selected_id']
-    movies_shots = Movies_Shot.objects.filter(movies__genres=genre).values_list('caption', 'id').distinct()
+    movies_shots = Movies_Shot.objects.filter(movies__genres=genre).values_list('caption', 'id', 'start_time', 'end_time').distinct()
     for caption in movies_shots[20:40]:
         show_plots.append(caption[0])
         show_plots_id.append(caption[1])
@@ -173,7 +173,14 @@ def plots_selected_5(request):
 
 def render_for_ai(request):
     render_url = '../../../../data/key_source_videos/tt1477834.mp4'
+    opt = {'output_dir':'static', 'user_id':'admin', 'movie_shots':[]}
     # import pdb
     # pdb.set_trace()
+    ids = request.GET['plots_id']
+    ids = json.loads(ids)
+    for id in ids:
+        tmp_url = Movies_Shot.objects.filter(id=id).values('video_url')
+        opt['movie_shots'].append(tmp_url[0]['video_url'])
+    render_url = concat.main(opt)
     context = json.dumps({'msg':'finish', 'render_url':render_url})
     return HttpResponse(context, content_type='application/json')

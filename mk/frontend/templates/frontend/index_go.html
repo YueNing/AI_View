@@ -120,7 +120,6 @@ $('.launch-modal').on('click', function(e){
             $('#introduction_button span').text('Show Video');
             $('#buttons').empty();
             var d = JSON.stringify(ids)
-            alert(d);
             $.ajax({
                 url:'/frontend/render',
                 data:{'plots_id':d},

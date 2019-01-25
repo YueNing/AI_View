@@ -173,7 +173,7 @@ def plots_selected_5(request):
 
 def render_for_ai(request):
     render_url = '../../../../data/key_source_videos/tt1477834.mp4'
-    opt = {'output_dir':'static', 'user_id':'admin', 'movie_shots':[]}
+    opt = {'output_dir':'static/', 'user_id':'admin', 'movie_shots':[]}
     # import pdb
     # pdb.set_trace()
     ids = request.GET['plots_id']

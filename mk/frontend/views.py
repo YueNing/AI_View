@@ -5,6 +5,8 @@ from django.http import HttpResponse
 # Create your views here.
 from django.shortcuts import render, render_to_response
 from backend.models import Movies, Movies_Shot
+from backend import concat
+selected_plots_id = []
 
 def index(request):
     return render_to_response('frontend/index+.html')
@@ -63,8 +65,82 @@ def genres_selected(request):
 
 def themes_selected(request):
     show_plots = []
-    movies_shots_captions = Movies_Shot.objects.filter(movies__genres=request.GET['genre']).values_list('caption').distinct()
-    for caption in movies_shots_captions[0:20]:
+    show_plots_id = []
+    genre = request.GET['genre']
+    movies_shots = Movies_Shot.objects.filter(movies__genres=genre).values_list('caption', 'id').distinct()
+    for caption in movies_shots[0:20]:
         show_plots.append(caption[0])
-    context = json.dumps({'msg':'finish', 'plots':show_plots})
+        show_plots_id.append(caption[1])
+    context = json.dumps({'msg':'finish', 'genre':genre, 'plots':show_plots, 'plots_id':show_plots_id})
+    return HttpResponse(context, content_type='application/json')
+
+def plots_selected(request):
+    selected_plots_id = []
+    time = 5
+    selected_plots_id = request.GET['selected_id']
+    show_plots_id = ['780', '790']
+    show_plots = ['test1','test2']
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    # import pdb
+    # pdb.set_trace()
+    return HttpResponse(context, content_type='application/json')
+
+def plots_selected_1(request):
+    selected_plots_id = []
+    time = 5
+    selected_plots_id = request.GET['selected_id']
+    old_id = request.GET['old_id']
+    show_plots_id = ['780', '790']
+    show_plots = ['test1','test2']
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':[selected_plots_id,old_id], 'time':time})
+    # import pdb
+    # pdb.set_trace()
+    return HttpResponse(context, content_type='application/json')
+
+def plots_selected_2(request):
+    selected_plots_id = []
+    time = 5
+    selected_plots_id = request.GET['selected_id']
+    show_plots_id = ['780', '790']
+    show_plots = ['test1','test2']
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    # import pdb
+    # pdb.set_trace()
+    return HttpResponse(context, content_type='application/json')
+
+def plots_selected_3(request):
+    selected_plots_id = []
+    time = 5
+    selected_plots_id = request.GET['selected_id']
+    show_plots_id = ['780', '790']
+    show_plots = ['test1','test2']
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    # import pdb
+    # pdb.set_trace()
+    return HttpResponse(context, content_type='application/json')
+def plots_selected_4(request):
+    selected_plots_id = []
+    time = 5
+    selected_plots_id = request.GET['selected_id']
+    show_plots_id = ['780', '790']
+    show_plots = ['test1','test2']
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    # import pdb
+    # pdb.set_trace()
+    return HttpResponse(context, content_type='application/json')
+
+def plots_selected_5(request):
+    selected_plots_id = []
+    time = 5
+    selected_plots_id = request.GET['selected_id']
+    show_plots_id = ['780', '790']
+    show_plots = ['test1','test2']
+    context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 'selected_plots_id':selected_plots_id, 'time':time})
+    # import pdb
+    # pdb.set_trace()
+    return HttpResponse(context, content_type='application/json')
+
+def render_for_ai(request):
+    render_url = ''
+    context = json.dumps({'msg':'finish', 'render_url':render_url})
     return HttpResponse(context, content_type='application/json')

@@ -164,10 +164,112 @@
                                                         $("#buttons").append(item_var);
                                                     };
                                                 })
+                                                var IDs_plot = [];
+                                                $('#buttons').find('button').each(function(){IDs_plot.push(this.id);})
+                                                $.each(IDs_plot, function(index, value){
+                                                    $('#'+value).click(function(){
+                                                        $.ajax({
+                                                            url:'/frontend/plots',
+                                                            data:{'plot':value, 'genre':data['genre'], 'selected_id':data['plots_id'][index]},
+                                                            type:'get',
+                                                            cache:false,
+                                                            dataType:'json',
+                                                            success:function(data){
+                                                                // TODO
+                                                                alert(data['selected_plots_id']);
+                                                                var time = data['time'];
+                                                                var end_time = 10;
+                                                                var end_plots = [];
+                                                                var end_plots_id = [];
+                                                                var max_selected_times =5;
+                                                                var selected_times = 0;
+                                                                // alert(time);
+                                                                $('#introduction_button span').text('Select a plot');
+                                                                $('#buttons').empty();
+                                                                // alert(time);
+                                                                $.each(data['plots'], function(index, value){
+                                                                            if(index%2==0){
+                                                                                var r = Math.floor((Math.random() * 30) + 60);
+                                                                                var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
+                                                                                var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
+                                                                                item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
+                                                                                $("#buttons").append(item_var);
+                                                                            }
+                                                                            else{
+                                                                                var l = Math.floor((Math.random() * 30) + 60);
+                                                                                var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
+                                                                                var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
+                                                                                item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
+                                                                                $("#buttons").append(item_var);
+                                                                            };
+                                                                })
+                                                                IDs_new_plot = []
+                                                                $('#buttons').find('button').each(function(){IDs_new_plot.push(this.id);})
+                                                                // alert(IDs_new_plot);
+                                                                $.each(IDs_plot, function(index, value){
+                                                                    $('#'+value).click(function(){
+                                                                        // alert(value);
+                                                                        $.ajax({
+                                                                            url:'/frontend/plots_1',
+                                                                            data:{'selected_id':data['plots_id'][index],'old_id':data['selected_plots_id'], 'genre':data['genre'],'plot':value},
+                                                                            type:'get',
+                                                                            cache:false,
+                                                                            dataType:'json',
+                                                                            success:function(data){
+                                                                                alert(data['selected_plots_id']);
+                                                                                alert(data['time']);
+                                                                //                 end_plots_id = data['selected_plots_id']
+                                                                //                 time = data['time'];
+                                                                //                 $('#introduction_button span').text('Select a plot');
+                                                                //                 $('#buttons').empty();
+                                                                //                 $.each(data['plots'], function(index, value){
+                                                                //                     if(index%2==0){
+                                                                //                         var r = Math.floor((Math.random() * 30) + 60);
+                                                                //                         var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
+                                                                //                         var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
+                                                                //                         item_var.css({"position": "absolute", "top": t+"%", "right": r+"%"});
+                                                                //                         $("#buttons").append(item_var);
+                                                                //                     }
+                                                                //                     else{
+                                                                //                         var l = Math.floor((Math.random() * 30) + 60);
+                                                                //                         var t = Math.floor((Math.random() * 15) + 15*(index+1)%95);
+                                                                //                         var item_var = $("<button id="+index+" type='button' class='btn btn-outline-info btn-sm'>"+value+"</button>");
+                                                                //                         item_var.css({"position": "absolute", "top": t+"%", "left": l+"%"});
+                                                                //                         $("#buttons").append(item_var);
+                                                                //                     };
+                                                                //                 })
+
+                                                                            },
+                                                                            error:function(){console.log('error')}
+                                                                        })
+                                                                    })
+                                                                })
+                                                                // TODO
+                                                                $.ajax({
+                                                                    url:'/frontend/render',
+                                                                    data:{'plots_id':end_plots_id},
+                                                                    type:'get',
+                                                                    cache:false,
+                                                                    dataType:'json',
+                                                                    success:function(data){
+                                                                        var render_video_url = data['render_url'];
+                                                                        // alert('hello');
+                                                                    },
+                                                                    error:function(){
+                                                                        console.log('error can not get the video url');
+                                                                    }
+                                                                })
+                                                            },
+                                                            error:function(){
+                                                                console.log('error plot send');
+                                                            }
+                                                        })
+                                                    })
+                                                })
                                             }
                                         },
                                         error:function(){
-                                            alert('error');
+                                            console.log('error theme send');
                                         }
                                     })
                                 })

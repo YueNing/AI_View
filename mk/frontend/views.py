@@ -173,7 +173,7 @@ def plots_selected_5(request):
 
 def render_for_ai(request):
     render_url = '../../../../data/key_source_videos/tt1477834.mp4'
-    import pdb
-    pdb.set_trace()
+    # import pdb
+    # pdb.set_trace()
     context = json.dumps({'msg':'finish', 'render_url':render_url})
     return HttpResponse(context, content_type='application/json')

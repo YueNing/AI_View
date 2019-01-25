@@ -1,5 +1,5 @@
 {% extends 'frontend/index_particle.html'%} 
-
+{% load staticfiles %}
 <!--/************************************************************
  *																*
  * 						      AI VIEW							*
@@ -75,9 +75,43 @@
     </div>
 </div>
 <div id='buttons'></div>
+        <!-- MODAL -->
+<div class="modal fade" id="modal-video" tabindex="-1" role="dialog" aria-labelledby="modal-video-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-video">
+                        <div class="embed-responsive embed-responsive-16by9">
+                                <video id="show_ai_video" controls playsinline poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg">
+                                    <source src="{% static 'tt1477834.mp4'%}" type="video/mp4" size="576">
+                               </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- <button id='drama' type="button" class="btn btn-outline-info btn-lg">Drama</button> -->
-<button id='introduction_button' type="button" class="btn btn-danger btn-lg"><span>Select a genre</span></button>
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2 video-link medium-paragraph">
+        <a href="#" class="launch-modal" data-modal-id="modal-video">
+            <span class="video-link-icon"><i class="fa fa-play"></i></span> 
+            <span class="video-link-text"></span>
+        </a>
+    </div>
+</div>
+
+<script>
+$('.launch-modal').on('click', function(e){
+    e.preventDefault();
+    $( '#' + $(this).data('modal-id') ).modal();
+});
+</script>
 
 <script type="text/javascript">
     $(document).ready(function (){
@@ -92,13 +126,8 @@
                 cache:false,
                 dataType:'json',
                 success:function(data){
-                    var render_video_url = data['render_url'];
-                    var vid = $("<video controls playsinline ><source src="+render_url+"type=\"video/mp4\" size=\"576\"></video>");
-                    $("#buttons").append(vid); 
-                    const player = new Plyr('video', {captions: {active: true}});
-                    window.player = player;
-                    window.player.play();
-                    // alert('hello');
+                    $("#show_ai_video").attr("src", "{% static 'tt1477834.mp4' %}")
+                    $(".launch-modal").click();
                 },
                 error:function(){
                     console.log('error can not get the video url');
@@ -178,7 +207,7 @@
                                                             dataType:'json',
                                                             success:function(data){
                                                                 // TODO
-                                                                alert(data['selected_plots_id']);
+                                                                // alert(data['selected_plots_id']);
                                                                 var time = data['time'];
                                                                 var end_time = 10;
                                                                 var end_plots = [];
@@ -202,7 +231,7 @@
                                                                                 cache:false,
                                                                                 dataType:'json',
                                                                                 success:function(data){
-                                                                                    alert(data['selected_plots_id']);
+                                                                                    // alert(data['selected_plots_id']);
                                                                                     // alert(data['time']);
                                                                     //                 end_plots_id = data['selected_plots_id']
                                                                     //                 time = data['time'];
@@ -219,7 +248,7 @@
                                                                                                     cache:false,
                                                                                                     dataType:'json',
                                                                                                     success:function(data){
-                                                                                                        alert(data['selected_plots_id']);
+                                                                                                        // alert(data['selected_plots_id']);
                                                                                                         if(data['time'] < 20){
                                                                                                             empty_and_create(data['plots'], 'plot');
                                                                                                             IDs_new_plot = []
@@ -234,7 +263,7 @@
                                                                                                                         cache:false,
                                                                                                                         dataType:'json',
                                                                                                                         success:function(data){
-                                                                                                                            alert(data['selected_plots_id'])
+                                                                                                                            // alert(data['selected_plots_id'])
                                                                                                                             if(data['time'] < 20){
                                                                                                                                 // alert('time');
                                                                                                                                 empty_and_create(data['plots'], 'plot');
@@ -249,7 +278,7 @@
                                                                                                                                             cache:false,
                                                                                                                                             dataType:'json',
                                                                                                                                             success:function(data){
-                                                                                                                                                alert(data['selected_plots_id'])
+                                                                                                                                                // alert(data['selected_plots_id'])
                                                                                                                                                 if(data['time'] < 20){
                                                                                                                                                     empty_and_create(data['plots'], 'plot');
                                                                                                                                                     IDs_new_plot = []
@@ -327,11 +356,11 @@
                                 })
                             })
                         }else{
-                            alert('restart!');
+                            console.log('restart!');
                         }
                     },
                     error:function(jqXHR, textStatus, err){
-                        alert('error');
+                        console.log('error');
                     }
                 });
             });

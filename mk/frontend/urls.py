@@ -6,7 +6,7 @@ urlpatterns = [
     # ex: /mysample/
     #url(r'^$', views.index, name='index'),
     # path('', views.index, name='index'),
-    path('', views.index_particle, name='index_particle'),
+    path('', views.index, name='index'),
     path('go', views.index_go, name='index_go'),
     path('genres', views.genres_selected, name='genres_selected'),
     path('themes', views.themes_selected, name='themes_selected'),

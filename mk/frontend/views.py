@@ -9,7 +9,7 @@ from backend import concat
 selected_plots_id = []
 
 def index(request):
-    return render_to_response('frontend/index+.html')
+    return render_to_response('frontend/index.html')
 
 def genre_selection(request):
     return render_to_response('frontend/genre_selection.html')
@@ -117,7 +117,7 @@ def plots_selected_2(request):
     selected_plots_id = request.GET['selected_id']
     old_id_1 = request.GET['old_id_1']
     old_id_2 = request.GET['old_id_2']
-    show_plots_id = ['780', '790']
+    show_plots_id = ['750', '760']
     show_plots = ['test1','test2']
     context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'],
                                  'selected_plots_id':[selected_plots_id,old_id_1,old_id_2], 'time':time})
@@ -130,7 +130,7 @@ def plots_selected_3(request):
     old_id_1 = request.GET['old_id_1']
     old_id_2 = request.GET['old_id_2']
     old_id_3 = request.GET['old_id_3']
-    show_plots_id = ['780', '790']
+    show_plots_id = ['750', '760']
     show_plots = ['test1','test2']
     context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'],
                          'selected_plots_id':[selected_plots_id,old_id_1, old_id_2,old_id_3], 'time':time})
@@ -146,7 +146,7 @@ def plots_selected_4(request):
     old_id_2 = request.GET['old_id_2']
     old_id_3 = request.GET['old_id_3']
     old_id_4 = request.GET['old_id_4']
-    show_plots_id = ['780', '790']
+    show_plots_id = ['750', '760']
     show_plots = ['test1','test2']
     context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'], 
                             'selected_plots_id':[selected_plots_id,old_id_1, old_id_2, old_id_3, old_id_4], 'time':time})
@@ -163,7 +163,7 @@ def plots_selected_5(request):
     old_id_3 = request.GET['old_id_3']
     old_id_4 = request.GET['old_id_4']
     old_id_5 = request.GET['old_id_5']
-    show_plots_id = ['780', '790']
+    show_plots_id = ['750', '760']
     show_plots = ['test1','test2']
     context = json.dumps({'msg':'set plots', 'plots':show_plots, 'plots_id':show_plots_id, 'genre':request.GET['genre'],
                          'selected_plots_id':[selected_plots_id, old_id_1, old_id_2, old_id_3, old_id_4, old_id_5], 'time':time})

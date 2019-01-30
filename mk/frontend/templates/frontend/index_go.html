@@ -129,12 +129,13 @@ $('.launch-modal').on('click', function(e){
                 cache:false,
                 dataType:'json',
                 success:function(data){
-                    $("#show_ai_video").attr("src", "{% static "+ data['render_url']+ " %}")
+                    $("#show_ai_video").attr("src", "{% static 'show_video_admin.mp4' %}")
                     $(".launch-modal").click();
                 },
                 error:function(){
                     console.log('error can not get the video url');
-                }
+                },
+                timeout: 120000
             })
         };
 

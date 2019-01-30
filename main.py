@@ -28,7 +28,7 @@ django.setup()
 from backend.models import Movies, Movies_Shot
 
 my_path = os.path.abspath(os.path.dirname(__file__))
-DEBUG = False
+DEBUG = True
 # first need to get source-video and edit the videodatainfo.json 
 # run the under command get the test video
 # python deal_video.py --video_input_path data/source-video/ --video_output_path data/test-video/  --videodatainfo videodatainfo.json

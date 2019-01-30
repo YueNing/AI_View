@@ -27,6 +27,7 @@ class Movies_Shot(models.Model):
     shot_id = models.CharField(max_length=10)
     title = models.CharField(max_length=100) 
     genre = models.CharField(max_length=30)
+    theme = models.CharField(max_length=30)
     video_url = models.URLField(max_length=200)
     start_time = models.DurationField()
     end_time = models.DurationField()

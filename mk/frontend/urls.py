@@ -30,5 +30,6 @@ urlpatterns = [
     path('action_competition_plot_selection',views.action_competition_plot_selection, name='action_competition_plot_selection'),
     path('action_war_plot_selection',views.action_war_plot_selection, name='action_war_plot_selection'),
     path('action_space_plot_selection',views.action_space_plot_selection, name='action_space_plot_selection'),
+    path('render_result',views.render_result, name='render_result'),
 
 ]

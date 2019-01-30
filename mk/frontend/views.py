@@ -1,4 +1,5 @@
 import json
+import random
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -12,7 +13,9 @@ def index(request):
     return render_to_response('frontend/index.html')
 
 def genre_selection(request):
-    return render_to_response('frontend/genre_selection.html')
+    genres = ['Action', 'Drama', 'Comedy']
+    content = {'genres':genres}
+    return render_to_response('frontend/genre_selection.html', content)
 
 def action_theme_selection(request):
     return render_to_response('frontend/action_theme_selection.html')
@@ -39,6 +42,23 @@ def action_war_plot_selection(request):
     return render_to_response('frontend/action_war_plot_selection.html')
 def action_space_plot_selection(request):
     return render_to_response('frontend/action_space_plot_selection.html')
+
+def render_result(request):
+    import pdb
+    opt = {'output_dir':'static/', 'user_id':'admin', 'movie_shots':[]}
+    genre = request.GET['genre']
+    theme = request.GET['theme']
+    plot = request.GET['plot']
+    shots = Movies_Shot.objects.filter(genre=genre)
+    if len(shots)>=7:
+        show_shots = random.sample(set(shots), 7)
+    else:
+        show_shots = shots
+    for show_shot in show_shots:
+        opt['movie_shots'].append(show_shot.video_url) 
+    render_url = concat(opt)
+    content = {'render_url':render_url}
+    return render_to_reponse('frontend/render_result.html', content)
 
 
 def index_particle(request):

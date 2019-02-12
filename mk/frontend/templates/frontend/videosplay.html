@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/css/ckin.min.css">
+        <style>
+            body {
+                background-color:grey;
+            }
+            #videosplay {
+                width: 90%;
+                margin:0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id='videosplay'>
+            <video src="{% static '' %}{{url}}" data-ckin="compact" data-overlay="1" data-title="{{title}}"></video>
+        </div>
+        <script src="/static/js/ckin.min.js"></script>
+    </body>
+</html>

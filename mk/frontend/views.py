@@ -23,23 +23,84 @@ def comedy_theme_selection(request):
 
 def drama_identity_crisis_plot_selection(request):
     return render_to_response('frontend/drama_identity_crisis_plot_selection.html')
+
+def drama_identity_crisis_despair(request):
+    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_identity_crisis_despair'})
+def drama_identity_crisis_resolution(request):
+    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_identity_crisis_resolution'})
+def drama_identity_crisis_knowledge_moment(request):
+    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_identity_crisis_knowledge_moment'})
+
 def drama_loss_plot_selection(request):
     return render_to_response('frontend/drama_loss_plot_selection.html')
+
+def drama_loss_getup(request):
+    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_loss_getup'})
+
+def drama_loss_death(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_loss_death'})
+
+def drama_loss_discussion(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_loss_discussion'})
+
 def drama_kidnapping_plot_selection(request):
     return render_to_response('frontend/drama_kidnapping_plot_selection.html')
+
+def drama_kidnapping_car_ride(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_kidnapping_car_ride'})
+def drama_kidnapping_phone_call(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_kidnapping_phone_call'})
+def drama_kidnapping_dramatic_reunion(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_kidnapping_dramatic_reunion'})
+
 def comedy_surrealism_plot_selection(request):
     return render_to_response('frontend/comedy_surrealism_plot_selection.html')
+def comedy_surrealism_shapes(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_surrealism_shapes'})
+def comedy_surrealism_colors(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_surrealism_colors'})
+      
 def comedy_confusion_plot_selection(request):
     return render_to_response('frontend/comedy_confusion_plot_selection.html')
+def comedy_confusion_a_object(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_confusion_a_object'})
+def comedy_confusion_a_person(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_confusion_a_person'})
+
+
 def comedy_relationship_plot_selection(request):
     return render_to_response('frontend/comedy_relationship_plot_selection.html')
+def comedy_relationship_get_to_know(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_relationship_get_to_know'})
+def comedy_relationship_forced_situation(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_relationship_forced_situation'})    
+
 def action_competition_plot_selection(request):
     return render_to_response('frontend/action_competition_plot_selection.html')
+def action_competition_win(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_competition_win'})    
+def action_competition_lose(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_competition_lose'})    
+def action_competition_car_chase(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_competition_car_chase'})    
+
 def action_war_plot_selection(request):
     return render_to_response('frontend/action_war_plot_selection.html')
+def action_war_attack(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_war_attack'})    
+def action_war_climax(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_war_climax'})    
+def action_war_make_a_plan(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_war_make_a_plan'})    
+    
 def action_space_plot_selection(request):
     return render_to_response('frontend/action_space_plot_selection.html')
-
+def action_space_no_return(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_space_no_return'})    
+def action_space_aliens_attack(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_space_aliens_attack'})    
+def action_space_missing_your_family(request):
+    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_space_missing_your_family'})    
 
 def index_particle(request):
     return render_to_response('frontend/index_particle.html')

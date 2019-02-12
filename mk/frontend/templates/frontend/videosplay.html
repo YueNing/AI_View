@@ -10,11 +10,30 @@
                 width: 90%;
                 margin:0 auto;
             }
+            #restart {
+                
+                position: absolute;
+                bottom: 2%;
+                right: 1%;
+            }
+            #restartbutton {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
         </style>
     </head>
     <body>
         <div id='videosplay'>
             <video src="{% static '' %}{{url}}" data-ckin="compact" data-overlay="1" data-title="{{title}}"></video>
+        </div>
+        <div id='restart'>
+            <a href="/frontend"><button id='restartbutton'>restart</button></a>
         </div>
         <script src="/static/js/ckin.min.js"></script>
     </body>

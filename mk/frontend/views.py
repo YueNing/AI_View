@@ -6,7 +6,7 @@ from django.http import HttpResponse
 # Create your views here.
 from django.shortcuts import render, render_to_response
 from backend.models import Movies, Movies_Shot
-from backend import concat
+from backend import concat, concatekev
 selected_plots_id = []
 
 def index(request):
@@ -24,86 +24,112 @@ def drama_theme_selection(request):
 def comedy_theme_selection(request):
     return render_to_response('frontend/comedy_theme_selection.html')
 
+# finished
 def drama_identity_crisis_plot_selection(request):
     return render_to_response('frontend/drama_identity_crisis_plot_selection.html')
-
 def drama_identity_crisis_despair(request):
-    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_identity_crisis_despair'})
+    render_url = concatekev.main('despair')
+    return render_to_response('frontend/videosplay.html',{'url':render_url, 'title':'drama_identity_crisis_despair'})
 def drama_identity_crisis_resolution(request):
-    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_identity_crisis_resolution'})
+    render_url = concatekev.main('resolution')
+    return render_to_response('frontend/videosplay.html',{'url':render_url, 'title':'drama_identity_crisis_resolution'})
 def drama_identity_crisis_knowledge_moment(request):
-    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_identity_crisis_knowledge_moment'})
+    render_url = concatekev.main('knowledge moment')
+    return render_to_response('frontend/videosplay.html',{'url':render_url, 'title':'drama_identity_crisis_knowledge_moment'})
 
+# finished
 def drama_loss_plot_selection(request):
     return render_to_response('frontend/drama_loss_plot_selection.html')
-
 def drama_loss_getup(request):
-    return render_to_response('frontend/videosplay.html',{'url':'001.mp4', 'title':'drama_loss_getup'})
-
+    render_url = concatekev.main('get up')
+    return render_to_response('frontend/videosplay.html',{'url':render_url, 'title':'drama_loss_getup'})
 def drama_loss_death(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_loss_death'})
-
+    render_url = concatekev.main('death')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'drama_loss_death'})
 def drama_loss_discussion(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_loss_discussion'})
+    render_url = concatekev.main('discussion')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'drama_loss_discussion'})
 
+# finished
 def drama_kidnapping_plot_selection(request):
     return render_to_response('frontend/drama_kidnapping_plot_selection.html')
-
 def drama_kidnapping_car_ride(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_kidnapping_car_ride'})
+    render_url = concatekev.main('car rode')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'drama_kidnapping_car_ride'})
 def drama_kidnapping_phone_call(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_kidnapping_phone_call'})
+    render_url = concatekev.main('phone call')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'drama_kidnapping_phone_call'})
 def drama_kidnapping_dramatic_reunion(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'drama_kidnapping_dramatic_reunion'})
+    render_url = concatekev.main('dramatic reunion')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'drama_kidnapping_dramatic_reunion'})
 
+# finished
 def comedy_surrealism_plot_selection(request):
     return render_to_response('frontend/comedy_surrealism_plot_selection.html')
 def comedy_surrealism_shapes(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_surrealism_shapes'})
+    render_url = concatekev.main('shapes')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'comedy_surrealism_shapes'})
 def comedy_surrealism_colors(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_surrealism_colors'})
-      
+    render_url = concatekev.main('colors')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'comedy_surrealism_colors'})
+
+# finished      
 def comedy_confusion_plot_selection(request):
     return render_to_response('frontend/comedy_confusion_plot_selection.html')
 def comedy_confusion_a_object(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_confusion_a_object'})
+    render_url = concatekev.main('a object')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'comedy_confusion_a_object'})
 def comedy_confusion_a_person(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_confusion_a_person'})
+    render_url = concatekev.main('a person')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'comedy_confusion_a_person'})
 
-
+# finished
 def comedy_relationship_plot_selection(request):
     return render_to_response('frontend/comedy_relationship_plot_selection.html')
 def comedy_relationship_get_to_know(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_relationship_get_to_know'})
+    render_url = concatekev.main('get-to-know') 
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'comedy_relationship_get_to_know'})
 def comedy_relationship_forced_situation(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'comedy_relationship_forced_situation'})    
+    render_url = concatekev.main('forced situation')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'comedy_relationship_forced_situation'})    
 
+# finished
 def action_competition_plot_selection(request):
     return render_to_response('frontend/action_competition_plot_selection.html')
 def action_competition_win(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_competition_win'})    
+    render_url = concatekev.main('win')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_competition_win'})    
 def action_competition_lose(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_competition_lose'})    
+    render_url = concatekev.main('lose')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_competition_lose'})    
 def action_competition_car_chase(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_competition_car_chase'})    
+    render_url = concatekev.main('car chase')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_competition_car_chase'})    
 
+# finished
 def action_war_plot_selection(request):
     return render_to_response('frontend/action_war_plot_selection.html')
 def action_war_attack(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_war_attack'})    
+    render_url = concatekev.main('attack')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_war_attack'})    
 def action_war_climax(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_war_climax'})    
+    render_url = concatekev.main('climax')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_war_climax'})    
 def action_war_make_a_plan(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_war_make_a_plan'})    
+    render_url = concatekev.main('make a plan')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_war_make_a_plan'})    
     
 def action_space_plot_selection(request):
     return render_to_response('frontend/action_space_plot_selection.html')
 def action_space_no_return(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_space_no_return'})    
+    render_url = concatekev.main('no return')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_space_no_return'})    
 def action_space_aliens_attack(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_space_aliens_attack'})    
+    render_url = concatekev.main('aliens attack')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_space_aliens_attack'})    
 def action_space_missing_your_family(request):
-    return render_to_response('frontend/videosplay.html', {'url':'001.mp4', 'title':'action_space_missing_your_family'})    
+    render_url = concatekev.main('missing your family')
+    return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_space_missing_your_family'})    
 
 def render_result(request):
     import pdb

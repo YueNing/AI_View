@@ -9,7 +9,7 @@
 
 import json
 from django.db import models
-
+import datetime
 # Create your models here.
 class Movies(models.Model):
     title = models.CharField(max_length=100)
@@ -56,16 +56,19 @@ class k_Shot(models.Model):
         return json.loads(self.genres)
 
     def setthemes(self, x):
-        self.genres = json.dumps(x)
+        self.themes = json.dumps(x)
     
     def getthemes(self):
         return json.loads(self.themes)
     
 
     def setplots(self, x):
-        self.genres = json.dumps(x)
+        self.plots = json.dumps(x)
     
     def getplots(self):
         return json.loads(self.plots)
+    
+    def setduration(self, x):
+        self.duration = datetime.timedelta(seconds=float(x))
     
     

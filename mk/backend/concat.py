@@ -1,6 +1,6 @@
 
 from moviepy.editor import VideoFileClip, concatenate_videoclips, AudioFileClip
-import sys, os
+import sys, os, random
 # /home/ubuntu/mk/AI_View
 my_path = os.path.abspath(os.path.dirname(__file__))
 def main(opt):
@@ -15,8 +15,15 @@ def main(opt):
     for clip in opt['movie_shots']:
         clips.append(VideoFileClip(clip))
     # final_clip = concatenate_videoclips(clips)
-    write_url = os.path.join(my_path, opt['output_dir']+"show_video_{}.mp4".format(opt['user_id']))    
+    nu = random.randint(1,100)
+    base_dir  =  os.path.join(my_path, opt['output_dir'])
+    write_url = os.path.join(my_path, opt['output_dir']+"show_video_{}_{}.mp4".format(opt['user_id'], nu))    
+    for i in os.listdir(base_dir):
+        if os.path.isfile(os.path.join(base_dir,i)) and 'show_video_admin' in i:
+            os.remove(os.path.join(base_dir, i))
     if 'audio' in opt.keys():
+        if os.path.exists(write_url):
+            os.remove(write_url)
         a_path = os.path.join(my_path, '../../'+'my_video_scenes_tmp/music/'+opt['audio'])
         logo = os.path.join(my_path, '../../'+'my_video_scenes_tmp/'+opt['logo'])
         audio = AudioFileClip(a_path)
@@ -26,7 +33,7 @@ def main(opt):
     else:
         final_clip = concatenate_videoclips(clips)
         msg = final_clip.write_videofile(write_url)
-    show_url = "show_video_{}.mp4".format(opt['user_id'])
+    show_url = "show_video_{}_{}.mp4".format(opt['user_id'],nu)
     for clip in clips:
         clip.close()
     return show_url

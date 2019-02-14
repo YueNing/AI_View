@@ -1,4 +1,5 @@
-{% extends 'frontend/base.html'%} 
+{% extends 'frontend/base.html'%}
+{% load staticfiles %}
  {% block title %}action_competition_plot_selection{% endblock %}
  {% block another_css %}
  <link rel="stylesheet" type="text/css" href="/static/css/action_competition_plot_selection.css?crc=443966804" id="pagesheet"/>
@@ -24,13 +25,13 @@
     <div id="u500-3_img"><!-- rasterized frame --></div>
    </div>
    <div id="u502-4-wrapper">
-   <a href="/frontend/action_competition_car_chase"><img id="u502-4_img" alt="CAR CHASE" src="/static/images/u502-4.png?crc=4223815189" data-image-width="197"/><!-- rasterized frame --></a>
+   <a href="/frontend/action_competition_car_chase" onclick="return render()"><img id="u502-4_img" alt="CAR CHASE" src="/static/images/u502-4.png?crc=4223815189" data-image-width="197"/><!-- rasterized frame --></a>
    </div>
    <div id="u509-4-wrapper">
-      <a href="/frontend/action_competition_win"><img id="u509-4_img" alt="WIN" src="/static/images/u509-4.png?crc=3905468719" data-image-width="78"/><!-- rasterized frame --></a>
+      <a href="/frontend/action_competition_win" onclick="return render()"><img id="u509-4_img" alt="WIN" src="/static/images/u509-4.png?crc=3905468719" data-image-width="78"/><!-- rasterized frame --></a>
    </div>
    <div id="u504-4-wrapper">
-      <a href="/frontend/action_competition_lose"><img id="u504-4_img" alt="LOSE" src="/static/images/u504-4.png?crc=4020309803" data-image-width="94"/><!-- rasterized frame --></a>
+      <a href="/frontend/action_competition_lose" onclick="return render()"><img id="u504-4_img" alt="LOSE" src="/static/images/u504-4.png?crc=4020309803" data-image-width="94"/><!-- rasterized frame --></a>
    </div>
    <div id="u511-4-wrapper">
     <img id="u511-4" alt="AI VIEW" src="/static/images/u511-4.png?crc=3777459588" data-image-width="52"/><!-- rasterized frame -->

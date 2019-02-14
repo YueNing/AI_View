@@ -2,7 +2,7 @@ import json
 import random
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.template import loader
 # Create your views here.
 from django.shortcuts import render, render_to_response
 from backend.models import Movies, Movies_Shot
@@ -54,7 +54,7 @@ def drama_loss_discussion(request):
 def drama_kidnapping_plot_selection(request):
     return render_to_response('frontend/drama_kidnapping_plot_selection.html')
 def drama_kidnapping_car_ride(request):
-    render_url = concatekev.main('car rode')
+    render_url = concatekev.main('car ride')
     return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'drama_kidnapping_car_ride'})
 def drama_kidnapping_phone_call(request):
     render_url = concatekev.main('phone call')
@@ -131,6 +131,9 @@ def action_space_missing_your_family(request):
     render_url = concatekev.main('missing your family')
     return render_to_response('frontend/videosplay.html', {'url':render_url, 'title':'action_space_missing_your_family'})    
 
+def renderpage(request):
+    template = loader.get_template("frontend/render.html")
+    return HttpResponse(template.render())
 def render_result(request):
     import pdb
     opt = {'output_dir':'static/', 'user_id':'admin', 'movie_shots':[]}

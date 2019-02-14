@@ -65,5 +65,6 @@ urlpatterns = [
     path('action_space_aliens_attack',views.action_space_aliens_attack, name='action_space_aliens_attack'),
     path('action_space_missing_your_family',views.action_space_missing_your_family, name='action_space_missing_your_family'),
     path('render_result',views.render_result, name='render_result'),
+    path('renderpage', views.renderpage, name='renderpage'),
 
 ]

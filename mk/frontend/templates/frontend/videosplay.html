@@ -17,9 +17,9 @@
                 right: 1%;
             }
             #restartbutton {
-                background-color: #4CAF50; /* Green */
+                background-color: #ffffff; /* Green */
                 border: none;
-                color: white;
+                color: black;
                 padding: 15px 32px;
                 text-align: center;
                 text-decoration: none;
@@ -30,7 +30,7 @@
     </head>
     <body>
         <div id='videosplay'>
-            <video src="{% static '' %}{{url}}" data-ckin="compact" data-overlay="1" data-title="{{title}}"></video>
+            <video src="{% static '' %}{{url}}" data-ckin="compact" data-color="#ffffff"  data-overlay="1" data-title="{{title}}"></video>
         </div>
         <div id='restart'>
             <a href="/frontend"><button id='restartbutton'>restart</button></a>

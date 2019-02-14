@@ -18,9 +18,9 @@ def main(opt):
     nu = random.randint(1,100)
     base_dir  =  os.path.join(my_path, opt['output_dir'])
     write_url = os.path.join(my_path, opt['output_dir']+"show_video_{}_{}.mp4".format(opt['user_id'], nu))    
-    for i in os.listdir(base_dir):
-        if os.path.isfile(os.path.join(base_dir,i)) and 'show_video_admin' in i:
-            os.remove(os.path.join(base_dir, i))
+    #for i in os.listdir(base_dir):
+    #    if os.path.isfile(os.path.join(base_dir,i)) and 'show_video_admin' in i:
+    #        os.remove(os.path.join(base_dir, i))
     if 'audio' in opt.keys():
         if os.path.exists(write_url):
             os.remove(write_url)

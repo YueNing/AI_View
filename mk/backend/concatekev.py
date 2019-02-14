@@ -34,8 +34,8 @@ def get_shots_url(plot):
             if pl == plot:
                 test_shots_url.append(object_s.url[17:])
 
-    if len(test_shots_url) >= 5:
-        shots_url = random.sample(test_shots_url, 5)
+    if len(test_shots_url) >= 6:
+        shots_url = random.sample(test_shots_url, 6)
     else:
         shots_url = test_shots_url
     return shots_url

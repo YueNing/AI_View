@@ -1,6 +1,8 @@
 {% extends 'frontend/base.html'%} 
  {% block title %}drama_identity_crisis_plot_selection{% endblock %}
-
+ {% block another_css %}
+ <link rel="stylesheet" type="text/css" href="/static/css/drama_identity_crisis_plot_selection.css?crc=3779960749" id="pagesheet"/>
+ {% endblock %}
 {% block content %}
 
   <div class="clearfix borderbox" id="page"><!-- group -->
@@ -23,13 +25,15 @@
     <div id="u413-3"><!-- rasterized frame --></div>
    </div>
    <div id="u407-4-wrapper">
-    <img id="u407-4" alt="KNOWLEDGE MOMENT" src="/static/images/u407-4.png?crc=3871441589" data-image-width="413"/><!-- rasterized frame -->
+    <a href="/frontend/drama_identity_crisis_knowledge_moment" onclick="return render()"><img id="u407-4" alt="KNOWLEDGE MOMENT" src="/static/images/u407-4.png?crc=3871441589" data-image-width="413"/><!-- rasterized frame --></a>
    </div>
+   <a href='/frontend/render_result?genre=drama&theme=identity_crisis&plot=despair'>
    <div id="u412-4-wrapper">
-    <img id="u412-4" alt="DESPAIR" src="/static/images/u412-4.png?crc=3910879387" data-image-width="150"/><!-- rasterized frame -->
+    <a href="/frontend/drama_identity_crisis_despair" onclick="return render()"><img id="u412-4" alt="DESPAIR" src="/static/images/u412-4.png?crc=3910879387" data-image-width="150"/><!-- rasterized frame --></a>
    </div>
+   </a>
    <div id="u410-4-wrapper">
-    <img id="u410-4" alt="RESOLUTION" src="/static/images/u410-4.png?crc=9469067" data-image-width="227"/><!-- rasterized frame -->
+    <a href="/frontend/drama_identity_crisis_resolution" onclick="return render()"><img id="u410-4" alt="RESOLUTION" src="/static/images/u410-4.png?crc=9469067" data-image-width="227"/><!-- rasterized frame --></a>
    </div>
    <div id="u403-4-wrapper">
     <img id="u403-4" alt="AI VIEW" src="/static/images/u403-4.png?crc=3777459588" data-image-width="52"/><!-- rasterized frame -->

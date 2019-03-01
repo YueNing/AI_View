@@ -1,7 +1,7 @@
 ###############################
 # Author: Yue Ning
 # Datum: 10.01.2019
-# Last Change Datum: 16.01.2019
+# Last Change Datum: 22.01.2019
 # Location: KIT
 # File_Name: imdb_analyse 
 # E-mail: n1085633848@gmail.com
@@ -13,12 +13,10 @@ from imdb import IMDb
 from tqdm import tqdm
 import subprocess
 
-# 加载Django环境，books_management_system是我的Django项目名称
 sys.path.append('../mk')
+sys.path.append('./mk')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", 'mk.settings')
-# 引入Django模块
 import django
-# 初始化Django环境
 django.setup()
 from backend.models import Movies, Movies_Shot
 
@@ -31,6 +29,7 @@ class movie_analyse():
                 self._genres = self._movie['genres']
                 self._director = self._movie['director']
                 self._plot = self._movie['plot']
+                self._cover_url = self.opt['url']
                 self.full_time = self.getLength()
         @property
         def title(self):
@@ -50,11 +49,14 @@ class movie_analyse():
         @property
         def plot(self):
                 return self._plot[0]
+        @property
+        def cover_url(self):
+                return self._cover_url
+
         
         def getLength(self):
                 if os.path.isfile(self.opt['output_dir']+'/'+self.opt['title_id']+'.mp4'):
                         input_video = self.opt['output_dir']+'/'+ self.opt['title_id'] + '.mp4'
-                        #input_video_path = os.path.abspath(input_video)
                         cmd = 'ffprobe -i {} -show_entries format=duration -v quiet -of csv="p=0"'.format(input_video)
                         output = subprocess.check_output(
                                 cmd,
@@ -69,8 +71,15 @@ class Save():
                 self.data = data
                 self.response = self.process()
         def process(self):
-                return 'successful save the data: %s'%(self.data['movie_id'])
-
+                if not Movies.objects.filter(title_id=self.data['movie_id']):
+                        movie = Movies(title=self.data['title'], themes='default', genres=self.data['genres'], cover_url=self.data['cover_url'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
+                        movie.save()
+                        return 'successful save the data: %s'%(self.data['movie_id'])
+                else:
+                        movie = Movies(id=Movies.objects.filter(title_id=self.data['movie_id'])[0].id, themes='default', cover_url=self.data['cover_url'], title=self.data['title'], genres=self.data['genres'], director=self.data['director'], title_id=self.data['movie_id'], plot=self.data['plot'],full_time=self.data['full_time'])
+                        movie.save()
+                        return 'exist update! {}'.format(self.data['movie_id'])
+                
 def analyse_videos(opt):
        movie = movie_analyse(opt)
        save_data = {}
@@ -80,24 +89,19 @@ def analyse_videos(opt):
        save_data['director'] =movie.director
        save_data['plot'] = movie.plot
        save_data['full_time'] = movie.full_time
+       save_data['cover_url'] = movie.cover_url
        return save_data
 
 def get_genre(ia):
     top250 = ia.get_top250_movies()
-    # Iterate through the first 20 movies in the top 250
     for movie_count in range(0, 20):
-        # First, retrieve the movie object using its ID
         movie = ia.get_movie(top250[movie_count].movieID)
-        # Print movie title and genres
         print(movie['title'])
         print(*movie['genres'], sep=", ")
 
 def main(opt):
-        # import pdb
-        # pdb.set_trace()
         save_data = analyse_videos(opt)
         django_mysql_saver = Save(save_data)
-        print(save_data)
         print(django_mysql_saver.response)
 
 if __name__ == "__main__":

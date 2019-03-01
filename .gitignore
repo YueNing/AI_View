@@ -1,0 +1,16 @@
+
+*.pyc
+*.npy
+*.mp4
+*.csv
+mk/backend/migrations/0001_initial.py
+data/caption.json
+data/command
+data/info.json
+data/save/model_score.txt
+data/save/opt_info.json
+mk/mk/settings.py
+mk/mk/settings.py
+mk/mk/settings.py
+*.pth
+.vscode/settings.json

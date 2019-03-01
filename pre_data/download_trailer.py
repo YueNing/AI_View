@@ -61,7 +61,6 @@ def select_downloader(downloader, opt):
         'wget': wget_downloader(opt),
         'curl': curl_downloader(opt)
     }
-    # print(downloader)
     return selected_downloader.get(downloader, None)
 
 def main(opt):

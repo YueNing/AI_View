@@ -1,3 +1,11 @@
+###############################
+# Author: Yue Ning
+# Datum: 1.01.2019
+# Date last modified: 24.01.2019
+# Location: Karlsruhe
+# File_Name: deal_video 
+# E-mail: n1085633848@gmail.com
+###############################
 import json
 import os
 import argparse
@@ -29,9 +37,6 @@ def extract_frames_5s(opt):
         print(video_to_frames_5s_command)
         subprocess.call(video_to_frames_5s_command, stdout=ffmpeg_log, stderr=ffmpeg_log)
       print("%s extracted finish"%(video['video_id']))
-          #subprocess.call(video_to_frames_command,
-           #               stdout=ffmpeg_log, stderr=ffmpeg_log)
-
 def read_file_to_list(path):
   files = os.listdir(path)
   return files
@@ -40,6 +45,15 @@ def main(opt):
   files = read_file_to_list(opt["video_input_path"])
   extract_frames_5s(opt)
  
+def add_keyframe(opt):
+  command = ['ffmpeg', '-i', opt['input_video'], '-g', '1', '-keyint_min', '1', opt['keyframe_video_dir']+opt['name']+'.mp4']
+  output = subprocess.check_output(
+                                  command,
+                                  shell=True, # Let this run in the shell
+                                  stderr=subprocess.STDOUT
+                          )
+  response = 'set task to add key frame'
+  return response
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()

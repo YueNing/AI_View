@@ -1,6 +1,8 @@
 {% extends 'frontend/base.html'%} 
  {% block title %}comedy_confusion_plot_selection{% endblock %}
-
+ {% block another_css %}
+ <link rel="stylesheet" type="text/css" href="/static/css/comedy_confusion_plot_selection.css?crc=191003402" id="pagesheet"/>
+ {% endblock %}
 {% block content %}
   <div class="clearfix borderbox" id="page"><!-- group -->
    <div id="u568-4-wrapper">
@@ -19,10 +21,10 @@
     <div id="u564-3"><!-- rasterized frame --></div>
    </div>
    <div id="u567-4-wrapper">
-    <img id="u567-4" alt="A OBJECT" src="/static/images/u567-4.png?crc=4217630420" data-image-width="162"/><!-- rasterized frame -->
+    <a href="/frontend/comedy_confusion_a_object" onclick="return render()"><img id="u567-4" alt="A OBJECT" src="/static/images/u567-4.png?crc=4217630420" data-image-width="162"/><!-- rasterized frame --></a>
    </div>
    <div id="u561-4-wrapper">
-    <img id="u561-4" alt="A PERSON" src="/static/images/u561-4.png?crc=110662961" data-image-width="180"/><!-- rasterized frame -->
+    <a href="/frontend/comedy_confusion_a_person" onclick="return render()"><img id="u561-4" alt="A PERSON" src="/static/images/u561-4.png?crc=110662961" data-image-width="180"/><!-- rasterized frame --></a>
    </div>
    <div id="u566-4-wrapper">
     <img id="u566-4" alt="AI VIEW" src="/static/images/u566-4.png?crc=3777459588" data-image-width="52"/><!-- rasterized frame -->

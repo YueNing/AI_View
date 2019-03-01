@@ -1,0 +1,39 @@
+
+<style>
+.container {
+    position: absolute;
+    top:15%;
+    right: 28%;
+	margin: 50px auto;
+	max-width: 50%;
+}
+</style>
+<script src="https://cdn.plyr.io/3.4.8/plyr.polyfilled.js"></script>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.4.8/plyr.css">
+<body>
+<div class="container">
+	<video controls playsinline poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg">
+		    <source src="../../../../data/key_source_videos/tt1477834.mp4" type="video/mp4" size="576">
+			<!-- Caption files -->
+			<!-- <track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt" default>
+			<track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt"> -->
+			<!-- Fallback for browsers that don't support the <video> element -->
+			<!-- <a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" download>Download</a> -->
+	</video>
+</div>
+
+<!-- Plyr resources and browser polyfills are specified in the pen settings -->
+<script>
+// Change the second argument to your options:
+// https://github.com/sampotts/plyr/#options
+const player = new Plyr('video', {captions: {active: true}});
+
+// Expose player so it can be used from the console
+window.player = player;
+window.player.play(); // Start playback
+window.player.on('timeupdate enterfullscreen exitfullscreen', event => console.log(event.type));
+// window.player.fullscreen.enter()
+// console.log(window.player.fullscreen.active);
+
+</script>
+</body>

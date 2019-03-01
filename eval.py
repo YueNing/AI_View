@@ -11,7 +11,8 @@ import misc.utils as utils
 from misc.cocoeval import suppress_stdout_stderr, COCOScorer
 
 from pandas.io.json import json_normalize
-
+# import win_unicode_console
+# win_unicode_console.enable()
 
 def convert_data_to_coco_scorer_format(data_frame):
     gts = {}
@@ -80,7 +81,7 @@ def get_caption(model, crit, dataset, vocab, opt):
         # forward the model to also get generated samples for each image
         seq_probs, seq_preds = model(
             fc_feats, mode='inference', opt=opt)
-        print(seq_preds)
+        #print(seq_preds)
 
         sents = utils.decode_sequence(vocab, seq_preds)
 

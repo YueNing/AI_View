@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': 'mk',
         'USER': 'mk_user',
         'PASSWORD': 'test123',
-        'HOST': '34.226.121.63',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -166,4 +166,4 @@ JET_THEMES = [
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-STATICFILES_DIRS = ('c:/Users/n1085/Documents/GitHub/AI_View/mk/static',)
+STATICFILES_DIRS = ('/home/naodongbanana/AI_View/mk/static',)

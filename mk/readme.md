@@ -1,7 +1,7 @@
 # AI VIEW Demo System(how to use)
 
 ## Prepare System environment and setup code
-### Install Install System relative Packages
+### Install System relative Packages
 
 - Ubuntu: `sudo apt install python3 ffmpeg mysql-server mysql-client`
 - Mac Os: `brew install python3 ffmpeg mysql`

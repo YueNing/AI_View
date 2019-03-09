@@ -18,9 +18,10 @@ change the permission of this script in order to let the file that can run in te
 
 ```
 chmod +x ai_view_demo_ubuntu_or_debian_platform.sh
-./ai_view "your source video google drive share link"
+./ai_view_demo_ubuntu_or_debian_platform.sh "your source video google drive share link"
 ```
 
+Example `./ai_view_demo_ubuntu_or_debian_platform.sh https://drive.google.com/open?id=1hqsLqN15A62QZUnXfeqm-7zULK9AKNe-`
 you can compress the relative videos, music, logo, data_ai_view.xlsx into a zip file and save into google drive, then get the share link. the structure of the sources.zip file is showed under. and the Demo zip File is here [zip sources file demo](https://drive.google.com/open?id=1hqsLqN15A62QZUnXfeqm-7zULK9AKNe-)
 the videos and data_ai_view.xlsx you can change, but the logo and music you must use the same name, that means, logo is logo_idents.mp4 and music is the same number name at the relative directory. you can chang is, but before use the system, you must keep always the same file name
 

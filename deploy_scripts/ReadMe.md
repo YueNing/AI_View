@@ -21,7 +21,7 @@ chmod +x ai_view_demo_ubuntu_or_debian_platform.sh
 ./ai_view "your source video google drive share link"
 ```
 
-you can save the relative videos, music, logo into google drive, and get the share link. the structur of the sources.zip file is showed under.
+you can compress the relative videos, music, logo, data_ai_view.xlsx into a zip file and save into google drive, then get the share link. the structure of the sources.zip file is showed under. and the Demo zip File is here [zip sources file demo](https://drive.google.com/open?id=1n3BhoSM7r1NWAD9S52gwE3ckPGE5fo4T)
 
 ![structure](images/structure.png)
 

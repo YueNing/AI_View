@@ -18,8 +18,12 @@ change the permission of this script in order to let the file that can run in te
 
 ```
 chmod +x ai_view_demo_ubuntu_or_debian_platform.sh
-./ai_view
+./ai_view "your source video google drive share link"
 ```
+
+you can save the relative videos, music, logo into google drive, and get the share link. the structur of the sources.zip file is showed under.
+
+![structure](images/structure.png)
 
 In the time that you run this script, you need to input two times password, first is your sudo password, second is the username and password of this AI system. with this you can administrate the database by input this link : `http://127.0.0.0:8000/admin`
 

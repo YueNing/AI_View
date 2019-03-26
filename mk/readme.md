@@ -60,6 +60,7 @@ python3 manage.py migrate
 ***Save all videos, logo video, music here show in picture***
 
 ![treefile](static/images/treefile.png)
+
 `cd ~/AI_View/pre_data`
 
 ***save the data_ai_view.xlsx file descriptions of videos under pre_data***

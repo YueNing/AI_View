@@ -1,5 +1,5 @@
 # AI VIEW Demo System(how to use)
-
+## ***(automated deployment script)[https://github.com/YueNing/AI_View/tree/master/deploy_scripts]***
 ## Prepare System environment and setup code
 ### Install System relative Packages
 

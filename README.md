@@ -3,7 +3,7 @@
 # AI-View
 get the video captioning and with this to analyse the plot, theme, genre. at last combine the videos that inlcude the same plot, theme, genre to a longer video.
 
-# [Demo](./deploy_scripts)
+# [Demo](./mk)
 
 # project description
 ###### goal: use the source video(a lot of full film and video) to generate a personal preference promotional video

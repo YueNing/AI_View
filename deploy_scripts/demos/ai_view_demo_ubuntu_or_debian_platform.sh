@@ -58,7 +58,7 @@ python3_virtualenv() {
 # setting mysql create new user and new database
 mysql_setting() {
 	MYSQL=`which mysql`
-	sudo $MYSQL mk -uroot<< EOF
+	sudo $MYSQL -uroot<< EOF
 	GRANT ALL PRIVILEGES ON *.* TO 'mk_user'@'localhost' IDENTIFIED BY 'test123';
 	CREATE DATABASE mk;
 	FLUSH PRIVILEGES;

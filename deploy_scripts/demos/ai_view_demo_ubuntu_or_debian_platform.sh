@@ -74,7 +74,7 @@ substuation_mk_setting() {
 django_setting() {
 	substuation_mk_setting
 	wait
-	cd mk && python3 manage.py createsuperuser && python3 manage.py makemigrations && python3 manage.py migrate
+	cd mk && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py createsuperuser &&
 	wait
 	cd ../pre_data && python3 ./save.py
 	wait

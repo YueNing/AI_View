@@ -6,6 +6,13 @@ firstly, download scripts [macos_scripts](https://minhaskamal.github.io/DownGit/
 
 unzip get the shell scipts and then run this command `source ai_view_demo_macos_darwin_platform.sh https://drive.google.com/open?id=1hqsLqN15A62QZUnXfeqm-7zULK9AKNe-`
 
+later use start.sh to start this system
+
+```
+cd ~/AI_View 
+./start.sh
+```
+
 ### deploy script that based on Debian(Debian, Ubuntu, Elementary and so on) Linux system 
 
 #### download the ai_view_demo_ubuntu_or_debian_platform.sh

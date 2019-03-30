@@ -23,7 +23,7 @@ install_homebrew(){
 init(){
 	mkdir ~/AI_View && cd ~/AI_View
 	wait
-	echo 'source ./medienkunst_python3.6_virtualenv/bin/activate' > start.sh
+	echo 'source ./medienkunst_python3_virtualenv/bin/activate' > start.sh
 	echo 'cd mk && python3 manage.py runserver' >> start.sh && chmod +x start.sh
 }
 

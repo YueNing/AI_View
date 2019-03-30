@@ -10,6 +10,7 @@ source_name='sources.zip'
 mysql_user_name='mk_user'
 mysql_password='test123'
 source_dir='my_video_scenes_tmp'
+godown_link='https://raw.githubusercontent.com/YueNing/AI_View/master/deploy_scripts/demos/godown.pl'
 
 # get the source file id
 IFS=? read -a full_id <<< $source_url
@@ -35,9 +36,7 @@ download_system_tools() {
 	brew services start mysql
 	pip3 install virtualenv
 	wait
-	wget -O gdrive https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download &
-	wait
-	chmod +x ./gdrive &
+	#wget -O gdrive https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download &
 }
 
 
@@ -51,7 +50,12 @@ get_source_code() {
 #get_source_code
 download_source_file() {
 	mkdir my_video_scenes_tmp &
-	./gdrive download $id  
+	#./gdrive download $id
+	wget $godown_link
+	wait
+	chmod +x ./godown.pl &
+	wait
+	./godown.pl $source_url $source_name
 	wait
 	unzip $source_name -d $source_dir && rm $source_name
 	wait
@@ -60,6 +64,7 @@ download_source_file() {
 
 #python3 virtualenv
 python3_virtualenv() {
+	cd ~/AI_View
 	mkdir medienkunst_python3_virtualenv && virtualenv --no-site-packages -p "/usr/local/bin/python3" medienkunst_python3_virtualenv 
 	wait
 	source ./medienkunst_python3_virtualenv/bin/activate
@@ -72,22 +77,23 @@ python3_virtualenv() {
 mysql_setting() {
 	MYSQL=`which mysql`
 	sudo $MYSQL -uroot<< EOF
-	GRANT ALL PRIVILEGES ON *.* TO 'mk_user'@'localhost' IDENTIFIED BY 'test123';
 	CREATE DATABASE mk;
+	CREATE USER 'mk_user'@'localhost' identified by 'test123';
+	GRANT ALL ON *.* TO 'mk_user'@'localhost';
 	FLUSH PRIVILEGES;
 EOF
 }
 
 substuation_mk_setting() {
 	cd mk/static &&
-	sed -i '/STATICFILES_DIRS/c\STATICFILES_DIRS = ('"'"$(pwd)"'"',)' ../mk/settings.py &&
+	sed -i '' 's~.*STATICFILES_DIRS.*~STATICFILES_DIRS = ('"'"$(pwd)"'"',)~' ../mk/settings.py &&
 	cd ../../
 }
 
 django_setting() {
 	substuation_mk_setting
 	wait
-	cd mk && python3 manage.py createsuperuser && python3 manage.py makemigrations && python3 manage.py migrate
+	cd mk && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py createsuperuser && 
 	wait
 	cd ../pre_data && python3 ./save.py
 	wait

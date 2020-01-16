@@ -42,4 +42,4 @@ the videos and data_ai_view.xlsx you can change, but the logo and music you must
 
 In the time that you run this script, you need to input two times password, first is your sudo password, second is the username and password of this AI system. with this you can administrate the database by input this link : `http://127.0.0.0:8000/admin`
 
-> ***Note:*** Now this script just can run in the local machine, than means your personal computer. But can config in cloud computer, you need to change the ip by hand, in order to can visit this system by use the ip of the cloud computer. otherwise you can not reach to this system
+> ***Note:*** Now this script just can run in the local machine, than means your personal computer. But can config in cloud computer, you need to change the ip by hand, in order to visit this system by using the ip of the cloud computer. otherwise you can not reach to this system

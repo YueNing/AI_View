@@ -1,7 +1,7 @@
 ![d](icon.png)
 
 # AI-View
-get the video captioning and with this to analyse the plot, theme, genre. at last combine the videos that inlcude the same plot, theme, genre to a longer video.
+Get video captioning and use them to analyze the plot, theme and genre. Finally, merge videos that contain the same plot, theme, and genre into a longer video. 
 
 # [Demo](./mk)
 
